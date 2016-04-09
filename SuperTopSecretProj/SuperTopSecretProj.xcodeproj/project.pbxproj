@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED9B420DD4B85C6C4F5FAE9C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D114D2C262C0AA3FFBD31BC /* libPods.a */; };
+		0A526A35D4C9D70740E81299 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 884275703996404A1A465911 /* Pods.framework */; };
+		BC721B09ADC585A3F62470B7 /* Pods_SuperTopSecretProj.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8965977A055E0145267508D3 /* Pods_SuperTopSecretProj.framework */; };
 		F7737B151CB87EC6008049EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7737B141CB87EC6008049EC /* AppDelegate.swift */; };
 		F7737B171CB87EC6008049EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7737B161CB87EC6008049EC /* ViewController.swift */; };
 		F7737B1A1CB87EC6008049EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7737B181CB87EC6008049EC /* Main.storyboard */; };
@@ -35,8 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1D114D2C262C0AA3FFBD31BC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB69A00A33549323DC512B9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		884275703996404A1A465911 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8965977A055E0145267508D3 /* Pods_SuperTopSecretProj.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuperTopSecretProj.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F4965AB7FB1A04212B5087 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F7737B111CB87EC6008049EC /* SuperTopSecretProj.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperTopSecretProj.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7737B141CB87EC6008049EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED9B420DD4B85C6C4F5FAE9C /* libPods.a in Frameworks */,
+				0A526A35D4C9D70740E81299 /* Pods.framework in Frameworks */,
+				BC721B09ADC585A3F62470B7 /* Pods_SuperTopSecretProj.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +85,8 @@
 		BBA65A933E41605E036D9BFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1D114D2C262C0AA3FFBD31BC /* libPods.a */,
+				884275703996404A1A465911 /* Pods.framework */,
+				8965977A055E0145267508D3 /* Pods_SuperTopSecretProj.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -321,7 +325,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SuperTopSecretProj/Pods-SuperTopSecretProj-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

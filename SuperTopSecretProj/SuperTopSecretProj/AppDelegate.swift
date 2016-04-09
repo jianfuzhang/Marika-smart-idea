@@ -8,6 +8,8 @@
 
 import UIKit
 import GoogleMaps
+import SwiftyJSON
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
