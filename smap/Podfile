@@ -1,0 +1,14 @@
+use_frameworks!
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.1'
+
+pod 'GoogleMaps'
+pod 'AFNetworking', '~> 2.5'
+pod 'BDBOAuth1Manager'
+
+target 'smap' do
+    pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+end
+
+
+
