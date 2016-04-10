@@ -13,19 +13,29 @@ import SwiftyJSON
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-        let camera = GMSCameraPosition.cameraWithLatitude(-33.86,
-            longitude: 151.20, zoom: 6)
-        let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-        mapView.myLocationEnabled = true
-        self.view = mapView
+        let url = NSURL(string: "http://yelp.com")
         
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(-33.86, 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapView
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
+            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+        }
+        
+        task.resume()
+        
+        
+//        super.viewDidLoad()
+//        
+//        let camera = GMSCameraPosition.cameraWithLatitude(-33.86,
+//            longitude: 151.20, zoom: 6)
+//        let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
+//        mapView.myLocationEnabled = true
+//        self.view = mapView
+//        
+//        let marker = GMSMarker()
+//        marker.position = CLLocationCoordinate2DMake(-33.86, 151.20)
+//        marker.title = "Sydney"
+//        marker.snippet = "Australia"
+//        marker.map = mapView
         // Do any additional setup after loading the view, typically from a nib.
     }
 
