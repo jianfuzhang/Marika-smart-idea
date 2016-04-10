@@ -1,4 +1,3 @@
-Marika's smart ideas
+Go into project smap and run "pod install" to install Google Maps API  and other dependencies.
 
-
-Go into SuperTopSecretProj, and run "pod install" to install GMAP api and other indenpendeces.
+Marika & Jeff 
