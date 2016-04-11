@@ -9,6 +9,3 @@ pod 'BDBOAuth1Manager'
 target 'smap' do
     pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 end
-
-
-
