@@ -18,8 +18,6 @@ class ViewController: UIViewController {
     
     //Mark: properties
     
-    @IBOutlet weak var destinationTextField: UITextField!
-    @IBOutlet weak var destinationLabel: UILabel!
     
     @IBOutlet var _originLat: UITextField!
     @IBOutlet var _originLong: UITextField!

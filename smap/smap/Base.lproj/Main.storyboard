@@ -105,7 +105,6 @@
                         <outlet property="_destLong" destination="Zir-8s-IsC" id="7xe-vq-x1R"/>
                         <outlet property="_originLat" destination="sxk-4D-UI7" id="aDQ-0J-rai"/>
                         <outlet property="_originLong" destination="kk9-m1-tiV" id="gp2-Rl-dGb"/>
-                        <outlet property="destinationLabel" destination="mVj-Uv-XIA" id="c43-IY-7cm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
