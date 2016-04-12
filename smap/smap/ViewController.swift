@@ -17,7 +17,10 @@ class ViewController: UIViewController {
     var directions = GoogleDirectionsRoute()
     
     //Mark: properties
-
+    
+    @IBOutlet weak var destinationTextField: UITextField!
+    @IBOutlet weak var destinationLabel: UILabel!
+    
     @IBOutlet var _originLat: UITextField!
     @IBOutlet var _originLong: UITextField!
     @IBOutlet var _destLat: UITextField!
