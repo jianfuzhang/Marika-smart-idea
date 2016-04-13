@@ -19,14 +19,12 @@ class ViewController: UIViewController {
     @IBOutlet var _originAddr: UITextField!
     @IBOutlet var _destAddr: UITextField!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func setDefaultDestination(sender: UIButton) {
@@ -76,8 +74,6 @@ class ViewController: UIViewController {
             }) { (operation: AFHTTPRequestOperation!, error: NSError!)  -> Void in
                 print("\(error)")
         }
-        
         operation.start()
-        
     }
 }
