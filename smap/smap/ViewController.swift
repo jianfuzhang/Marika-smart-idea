@@ -24,33 +24,13 @@ class ViewController: UIViewController {
     @IBOutlet var _destLat: UITextField!
     @IBOutlet var _destLong: UITextField!
     
+    @IBOutlet var _originAddr: UITextField!
+    @IBOutlet var _destAddr: UITextField!
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        //        Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
-        //            self.businesses = businesses
-        //
-        //            for business in businesses {
-        //                print(business.name!)
-        //                print(business.address!)
-        //            }
-        //        })
-        //
-        //
-        //        let camera = GMSCameraPosition.cameraWithLatitude(-33.86,
-        //            longitude: 151.20, zoom: 6)
-        //        let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-        //        mapView.myLocationEnabled = true
-        //        self.view = mapView
-        //
-        //        let marker = GMSMarker()
-        //        marker.position = CLLocationCoordinate2DMake(-33.86, 151.20)
-        //        marker.title = "Sydney"
-        //        marker.snippet = "Australia"
-        //        marker.map = mapView
-        //
         
     }
     
@@ -61,17 +41,14 @@ class ViewController: UIViewController {
     
     @IBAction func setDefaultDestination(sender: UIButton) {
         
-        
         let service = "https://maps.googleapis.com/maps/api/directions/json"
-
-        let originLat = _originLat.text!
-        let originLong = _originLong.text!
         
-        let destLat = _destLat.text!
-        let destLong = _destLong.text!
+        let originAddr = _originAddr.text!
+        let destAddr = _destAddr.text!
         
-        let urlString = "\(service)?origin=\(originLat),\(originLong)&destination=\(destLat),\(destLong)&mode=driving&units=metric&sensor=true&key=AIzaSyC-LflNZIou4Lzdk8Wg_RM-MfvaWpqVdng"
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=800_Concar+Ave+San+Mateo,+CA&destination=1622+Palm+Ave+San+Mateo,+CA&key=AIzaSyC-LflNZIou4Lzdk8Wg_RM-MfvaWpqVdng"
         
+        //      let urlString = "\(service)?origin=\(originAddr)&destination=\(destAddr)&mode=driving&units=metric&sensor=true&key=AIzaSyC-LflNZIou4Lzdk8Wg_RM-MfvaWpqVdng"
         
         let directionsURL = NSURL(string: urlString)
         
@@ -87,12 +64,20 @@ class ViewController: UIViewController {
             
             if let result = responseObject as? NSDictionary {
                 if let routes = result["routes"] as? [NSDictionary] {
+                    
+                    let origin = routes[0]["bounds"]!["northeast"] as? NSDictionary
+                    
+                    let originLat = origin!["lat"] as? Double
+                    let originLong = origin!["lng"] as? Double
+                    
+                    
                     if let lines = routes[0]["overview_polyline"] as? NSDictionary {
                         if let points = lines["points"] as? String {
+                            
                             let path = GMSPath(fromEncodedPath: points)
                             let distance = GMSGeometryLength(path!)
                             
-                            let camera = GMSCameraPosition.cameraWithLatitude(Double(originLat)!, longitude: Double(originLong)!, zoom: 15)
+                            let camera = GMSCameraPosition.cameraWithLatitude(originLat!, longitude: originLong!, zoom: 15)
                             
                             let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
                             mapView.myLocationEnabled = true
@@ -117,4 +102,4 @@ class ViewController: UIViewController {
         
         
     }
-   }
+}
