@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()       
+        super.viewDidLoad()
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,14 +54,14 @@ class ViewController: UIViewController {
                 if let routes = result["routes"] as? [NSDictionary] {
                     
                     let routesJson = JSON(routes)
-                    
-                    let originLat = routesJson[0]["bounds"]["northeast"]["lat"].doubleValue
-                    let originLong = routesJson[0]["bounds"]["northeast"]["lng"].doubleValue
                     let points = routesJson[0]["overview_polyline"]["points"].stringValue
                     
                     let path = GMSPath(fromEncodedPath: points)
                     
-                    let camera = GMSCameraPosition.cameraWithLatitude(originLat, longitude:originLong, zoom: 15)
+                    let camera = GMSCameraPosition.cameraWithLatitude(
+                        (path?.coordinateAtIndex(0).latitude)!,
+                        longitude: (path?.coordinateAtIndex(0).longitude)!,
+                        zoom: 15)
                     
                     let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
                     mapView.myLocationEnabled = true
