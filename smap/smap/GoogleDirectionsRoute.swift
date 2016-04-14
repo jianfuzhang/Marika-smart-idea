@@ -25,31 +25,33 @@ public class GoogleDirectionsRoute: NSObject {
     }
     
     //Draw origin marker
-    public func drawOriginMarkerOnMap(map: GMSMapView, path: GMSPath!) -> GMSMarker? {
+    public func drawOriginMarkerOnMap(color: UIColor, title: String, map: GMSMapView, path: GMSPath!) -> GMSMarker? {
         var marker: GMSMarker?
         if let p = path {
             if p.count() > 1 {
-                marker = drawMarkerWithCoordinates(p.coordinateAtIndex(0), onMap: map)
+                marker = drawMarkerWithCoordinates(color, title: title, coordinates: p.coordinateAtIndex(0), onMap: map)
             }
         }
         return marker
     }
     
     //Draw destination marker
-    public func drawDestinationMarkerOnMap(map: GMSMapView, path: GMSPath!) -> GMSMarker? {
+    public func drawDestinationMarkerOnMap(color: UIColor, title: String, map: GMSMapView, path: GMSPath!) -> GMSMarker? {
         var marker: GMSMarker?
         if let p = path {
             if p.count() > 1 {
-                marker = drawMarkerWithCoordinates(p.coordinateAtIndex(p.count() - 1), onMap: map)
+                marker = drawMarkerWithCoordinates(color, title: title, coordinates: p.coordinateAtIndex(p.count() - 1), onMap: map)
             }
         }
         return marker
     }
     
     //Draw marker helper
-    public func drawMarkerWithCoordinates(coordinates: CLLocationCoordinate2D, onMap map: GMSMapView) -> GMSMarker {
+    public func drawMarkerWithCoordinates(color: UIColor, title: String, coordinates: CLLocationCoordinate2D, onMap map: GMSMapView) -> GMSMarker {
         let marker = GMSMarker(position: coordinates)
+        marker.title = title
         marker.map = map
+        marker.icon = GMSMarker.markerImageWithColor(color)
         return marker
     }
     

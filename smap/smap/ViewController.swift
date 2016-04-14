@@ -85,7 +85,7 @@ class ViewController: UIViewController {
                             let lng = business.lng
                             let coordinate = CLLocationCoordinate2D(latitude: lat!,longitude: lng!)
 //                            let ll = CLLocationCoordinate2D(latitude: lat!,longitude: lon!)
-                            self.directions.drawMarkerWithCoordinates(coordinate,onMap: mapView)
+                            self.directions.drawMarkerWithCoordinates(UIColor.blueColor(), title: business.name!, coordinates: coordinate,onMap: mapView)
 //                            print (lon)
                         }
                     })
@@ -94,8 +94,8 @@ class ViewController: UIViewController {
                     self.view = mapView
                     
                     self.directions.drawOnMap(mapView, path: path)
-                    self.directions.drawOriginMarkerOnMap(mapView, path: path)
-                    self.directions.drawDestinationMarkerOnMap(mapView, path: path)
+                    self.directions.drawOriginMarkerOnMap(UIColor.greenColor(), title: "Origin", map: mapView, path: path)
+                    self.directions.drawDestinationMarkerOnMap(UIColor.redColor(), title: "Destination", map: mapView, path: path)
                     
                 }
             }
