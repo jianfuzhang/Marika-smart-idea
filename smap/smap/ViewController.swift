@@ -15,11 +15,25 @@ class ViewController: UIViewController {
     
     var directions = GoogleDirectionsRoute()
     
+    
+    var businesses: [Business]!
+    
     //Mark: properties
     @IBOutlet var _originAddr: UITextField!
     @IBOutlet var _destAddr: UITextField!
+
     
     override func viewDidLoad() {
+
+        
+        Business.searchWithTerm("Thai", bounds: "37.900000,-122.500000|37.788022,-122.399797", sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+            self.businesses = businesses
+            
+            for business in businesses {
+                print (business)
+            }
+        })
+        
         super.viewDidLoad()
     }
     
