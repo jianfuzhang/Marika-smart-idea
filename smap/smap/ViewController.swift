@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import AFNetworking
 import GoogleMaps
+import PXGoogleDirections
 
 class ViewController: UIViewController {
     
