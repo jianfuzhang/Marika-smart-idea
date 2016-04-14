@@ -54,6 +54,19 @@ class ViewController: UIViewController {
                     let routesJson = JSON(routes)
                     let points = routesJson[0]["overview_polyline"]["points"].stringValue
                     
+                    //get the bounds lat/lon
+                    let bound_northeast_lat = routesJson[0]["bounds"]["northeast"]["lat"].number
+                    let bound_northeast_lng = routesJson[0]["bounds"]["northeast"]["lng"].number
+                    let bound_southwest_lat = routesJson[0]["bounds"]["southwest"]["lat"].number
+                    let bound_southwest_lng = routesJson[0]["bounds"]["southwest"]["lng"].number
+
+                    print(bound_northeast_lat)
+                    print(bound_northeast_lng)
+                    print(bound_southwest_lat)
+                    print(bound_southwest_lng)
+
+                    
+                    
                     let path = GMSPath(fromEncodedPath: points)
                     
                     let camera = GMSCameraPosition.cameraWithLatitude(
