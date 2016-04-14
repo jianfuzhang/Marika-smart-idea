@@ -12,7 +12,7 @@
 		F72C3E7D1CBC558600AD5347 /* GoogleDirectionsRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */; };
 		F7C836F01CBA0A53004360A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C836EF1CBA0A53004360A8 /* AppDelegate.swift */; };
 		F7C836F21CBA0A53004360A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C836F11CBA0A53004360A8 /* ViewController.swift */; };
-		F7C836F51CBA0A53004360A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7C836F31CBA0A53004360A8 /* Main.storyboard */; };
+		F7C836F51CBA0A53004360A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7C836F31CBA0A53004360A8 /* Main.storyboard */; settings = {ASSET_TAGS = (GetCurrentLocation, ); }; };
 		F7C836F71CBA0A53004360A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7C836F61CBA0A53004360A8 /* Assets.xcassets */; };
 		F7C836FA1CBA0A53004360A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7C836F81CBA0A53004360A8 /* LaunchScreen.storyboard */; };
 		F7C837051CBA0A53004360A8 /* smapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C837041CBA0A53004360A8 /* smapTests.swift */; };
@@ -259,12 +259,16 @@
 		F7C836E41CBA0A53004360A8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					GetCurrentLocation,
+				);
 				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Lee, Marika";
 				TargetAttributes = {
 					F7C836EB1CBA0A53004360A8 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = ZH6SJB5LLJ;
 					};
 					F7C836FF1CBA0A53004360A8 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -523,10 +527,13 @@
 			baseConfigurationReference = 27F40CE45BED21DC2498CEE7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = smap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.smap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -535,10 +542,13 @@
 			baseConfigurationReference = 94174D813ABD911047256AED /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = smap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.smap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

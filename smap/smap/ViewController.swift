@@ -14,7 +14,7 @@ import GoogleMaps
 class ViewController: UIViewController {
     
     var directions = GoogleDirectionsRoute()
-    
+    var placesClient: GMSPlacesClient?
     
     var businesses: [Business]!
     
@@ -24,8 +24,9 @@ class ViewController: UIViewController {
 
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        placesClient = GMSPlacesClient()
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -103,5 +104,24 @@ class ViewController: UIViewController {
                 print("\(error)")
         }
         operation.start()
+    }
+    
+    @IBAction func GetCurrentLocation(sender: UIButton) {
+        placesClient?.currentPlaceWithCallback({
+            (placeLikelihoodList: GMSPlaceLikelihoodList?, error: NSError?) -> Void in
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            self._originAddr.text = "No current place"
+            if let placeLikelihoodList = placeLikelihoodList {
+                let place = placeLikelihoodList.likelihoods.first?.place
+                if let place = place {
+                    self._originAddr.text = place.formattedAddress!.componentsSeparatedByString(", ")
+                        .joinWithSeparator("\n")
+                }
+            }
+        })
     }
 }
