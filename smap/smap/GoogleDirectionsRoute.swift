@@ -9,6 +9,7 @@
 import Foundation
 import GoogleMaps
 
+
 //A route computed by the Google Directions API, following a directions request
 public class GoogleDirectionsRoute: NSObject {
     
@@ -46,7 +47,7 @@ public class GoogleDirectionsRoute: NSObject {
     }
     
     //Draw marker helper
-    private func drawMarkerWithCoordinates(coordinates: CLLocationCoordinate2D, onMap map: GMSMapView) -> GMSMarker {
+    public func drawMarkerWithCoordinates(coordinates: CLLocationCoordinate2D, onMap map: GMSMapView) -> GMSMarker {
         let marker = GMSMarker(position: coordinates)
         marker.map = map
         return marker
