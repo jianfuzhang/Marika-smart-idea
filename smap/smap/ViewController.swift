@@ -24,15 +24,6 @@ class ViewController: UIViewController {
 
     
     override func viewDidLoad() {
-
-        
-        Business.searchWithTerm("Thai", bounds: "37.900000,-122.500000|37.788022,-122.399797", sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            
-            for business in businesses {
-                print (business)
-            }
-        })
         
         super.viewDidLoad()
     }
@@ -69,17 +60,21 @@ class ViewController: UIViewController {
                     let points = routesJson[0]["overview_polyline"]["points"].stringValue
                     
                     //get the bounds lat/lon
-                    let bound_northeast_lat = routesJson[0]["bounds"]["northeast"]["lat"].number
-                    let bound_northeast_lng = routesJson[0]["bounds"]["northeast"]["lng"].number
-                    let bound_southwest_lat = routesJson[0]["bounds"]["southwest"]["lat"].number
-                    let bound_southwest_lng = routesJson[0]["bounds"]["southwest"]["lng"].number
-
-                    print(bound_northeast_lat)
-                    print(bound_northeast_lng)
-                    print(bound_southwest_lat)
-                    print(bound_southwest_lng)
-
+                    let bound_northeast_lat = routesJson[0]["bounds"]["northeast"]["lat"].number!
+                    let bound_northeast_lng = routesJson[0]["bounds"]["northeast"]["lng"].number!
+                    let bound_southwest_lat = routesJson[0]["bounds"]["southwest"]["lat"].number!
+                    let bound_southwest_lng = routesJson[0]["bounds"]["southwest"]["lng"].number!
+                    let bounds:String? = String(bound_northeast_lat)+","+String(bound_northeast_lng)+"|"+String(bound_southwest_lat)+","+String(bound_southwest_lng)
+                    print (bounds)
                     
+                    Business.searchWithTerm("Thai", bounds: bounds!, sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+                        self.businesses = businesses
+                        
+                        for business in businesses {
+                            print (business)
+                        }
+                    })
+
                     
                     let path = GMSPath(fromEncodedPath: points)
                     
