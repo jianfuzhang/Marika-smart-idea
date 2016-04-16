@@ -13,6 +13,10 @@ import GoogleMaps
 
 class ViewController: UIViewController {
     
+    @IBOutlet var mapView: GMSMapView!
+    var london: GMSMarker!
+    var londonView:UIImageView!
+    
     var directions = GoogleDirectionsRoute()
     var placesClient: GMSPlacesClient?
     
@@ -21,13 +25,22 @@ class ViewController: UIViewController {
     //Mark: properties
     @IBOutlet var _originAddr: UITextField!
     @IBOutlet var _destAddr: UITextField!
-
+    @IBOutlet var _searchBusiness: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         placesClient = GMSPlacesClient()
-
+  
         loadView()
+    }
+    
+    func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
+        UIView.animateWithDuration(5.0, animations: { () -> Void in
+            self.londonView.tintColor = UIColor.blueColor()
+            }, completion: {(finished: Bool) -> Void in
+                // Stop tracking view changes to allow CPU to idle.
+                self.london.tracksViewChanges = false
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,8 +51,8 @@ class ViewController: UIViewController {
     func buttonAction(sender:UIButton!)
     {
         viewDidLoad()
+        
     }
-    
     
     @IBAction func setDefaultDestination(sender: UIButton) {
         
@@ -47,6 +60,7 @@ class ViewController: UIViewController {
         
         let originAddr = _originAddr.text!
         let destAddr = _destAddr.text!
+        let searchBusiness = _searchBusiness.text!
         
         let urlString = ("\(service)?origin=\(originAddr)&destination=\(destAddr)&mode=driving&units=metric&sensor=true&key=AIzaSyC-LflNZIou4Lzdk8Wg_RM-MfvaWpqVdng").stringByReplacingOccurrencesOfString(" ", withString: "+")
         
@@ -86,19 +100,19 @@ class ViewController: UIViewController {
                     let bounds:String? = String(bound_northeast_lat)+","+String(bound_northeast_lng)+"|"+String(bound_southwest_lat)+","+String(bound_southwest_lng)
                     print (bounds)
                     
-                    Business.searchWithTerm("Coffee", bounds: bounds!, sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+                    Business.searchWithTerm(searchBusiness, bounds: bounds!, sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
                         self.businesses = businesses
                         
                         for business in businesses {
                             let lat = business.lat
                             let lng = business.lng
                             let coordinate = CLLocationCoordinate2D(latitude: lat!,longitude: lng!)
-//                            let ll = CLLocationCoordinate2D(latitude: lat!,longitude: lon!)
+                            //                            let ll = CLLocationCoordinate2D(latitude: lat!,longitude: lon!)
                             self.directions.drawMarkerWithCoordinates(UIColor.blueColor(), title: business.name!, coordinates: coordinate,onMap: mapView)
-//                            print (lon)
+                            //                            print (lon)
                         }
                     })
-
+                    
                     
                     self.view = mapView
                     
@@ -116,8 +130,8 @@ class ViewController: UIViewController {
             
             self.view.addSubview(button)
             
-            }) { (operation: AFHTTPRequestOperation!, error: NSError!)  -> Void in
-                print("\(error)")
+        }) { (operation: AFHTTPRequestOperation!, error: NSError!)  -> Void in
+            print("\(error)")
         }
         operation.start()
     }

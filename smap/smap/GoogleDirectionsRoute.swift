@@ -13,7 +13,6 @@ import GoogleMaps
 //A route computed by the Google Directions API, following a directions request
 public class GoogleDirectionsRoute: NSObject {
     
-    
     //Draw line from origin to destination
     public func drawOnMap(mapView: GMSMapView, path: GMSPath!) -> GMSPolyline? {
         let polyline: GMSPolyline? = nil
@@ -46,11 +45,16 @@ public class GoogleDirectionsRoute: NSObject {
         return marker
     }
     
+    
+    
     //Draw marker helper
     public func drawMarkerWithCoordinates(color: UIColor, title: String, coordinates: CLLocationCoordinate2D, onMap map: GMSMapView) -> GMSMarker {
+
         let marker = GMSMarker(position: coordinates)
+        
         marker.title = title
         marker.map = map
+        marker.opacity = 0.6
         marker.icon = GMSMarker.markerImageWithColor(color)
         return marker
     }

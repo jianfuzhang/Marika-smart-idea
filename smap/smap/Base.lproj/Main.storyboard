@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="500" placeholderIntrinsicHeight="30" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="yFo-qe-jYi">
-                                <rect key="frame" x="50" y="76" width="500" height="161"/>
+                                <rect key="frame" x="50" y="76" width="500" height="212"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Enter origin address:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJQ-vp-ee1">
                                         <rect key="frame" x="0.0" y="0.0" width="158" height="21"/>
@@ -29,7 +29,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="85" height="21"/>
                                         </variation>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="800 Concar Drive San Mateo CA" borderStyle="roundedRect" placeholder="enter address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oGQ-TW-PXg">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="800 Concar Drive San Mateo CA" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oGQ-TW-PXg">
                                         <rect key="frame" x="0.0" y="21" width="230" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -53,7 +53,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="85" height="21"/>
                                         </variation>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1622 Palm Avenue San Mateo CA" borderStyle="roundedRect" placeholder="enter address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rY6-To-3Mc">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1622 Palm Avenue San Mateo CA" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rY6-To-3Mc">
                                         <rect key="frame" x="0.0" y="101" width="235" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -61,8 +61,25 @@
                                             <rect key="frame" x="0.0" y="21" width="111" height="30"/>
                                         </variation>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="What do you want to look for?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gj-5n-XQh">
+                                        <rect key="frame" x="0.0" y="131" width="229" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.24313727020000001" green="0.094117656349999995" blue="0.38823533059999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular" ambiguous="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="85" height="21"/>
+                                        </variation>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Coffee" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fIB-fJ-jYa">
+                                        <rect key="frame" x="0.0" y="152" width="65" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        <variation key="heightClass=regular-widthClass=regular" ambiguous="YES">
+                                            <rect key="frame" x="0.0" y="21" width="111" height="30"/>
+                                        </variation>
+                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSq-NX-wl8">
-                                        <rect key="frame" x="0.0" y="131" width="48" height="30"/>
+                                        <rect key="frame" x="0.0" y="182" width="48" height="30"/>
                                         <state key="normal" title="Search"/>
                                         <connections>
                                             <action selector="setDefaultDestination:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MNX-tv-G28"/>
@@ -76,6 +93,7 @@
                     <connections>
                         <outlet property="_destAddr" destination="rY6-To-3Mc" id="58c-od-Byx"/>
                         <outlet property="_originAddr" destination="oGQ-TW-PXg" id="K5L-Na-tV4"/>
+                        <outlet property="_searchBusiness" destination="fIB-fJ-jYa" id="YfQ-OY-V9m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
