@@ -126,8 +126,8 @@ class ViewController: UIViewController {
             let button   = UIButton(type: UIButtonType.System) as UIButton
             button.frame = CGRectMake(10, 10, 50, 50)
             button.setTitle("Back", forState: UIControlState.Normal)
-            button.addTarget(self, action: #selector(ViewController.buttonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            
+            button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+    
             self.view.addSubview(button)
             
         }) { (operation: AFHTTPRequestOperation!, error: NSError!)  -> Void in
