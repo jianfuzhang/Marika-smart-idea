@@ -26,4 +26,4 @@ The following CocoaPods were used:
 
 ______________
 
-Marika Lee & Jeff Zhang
+Marika Lee & Jeff Zhang 
