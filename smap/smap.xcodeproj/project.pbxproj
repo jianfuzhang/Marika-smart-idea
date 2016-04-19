@@ -10,7 +10,6 @@
 		8C993741F04C777D72605F1D /* Pods_smap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DC5D79D248C3412B76E821 /* Pods_smap.framework */; };
 		CFE98D40140A251747D7EF38 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0B39AD15973BA44F4D39E2 /* Pods.framework */; };
 		F72C3E7D1CBC558600AD5347 /* GoogleDirectionsRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */; };
-		F78C750B1CC19E2D0085CD2B /* infobox.js in Resources */ = {isa = PBXBuildFile; fileRef = F78C750A1CC19E2D0085CD2B /* infobox.js */; };
 		F7C836F01CBA0A53004360A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C836EF1CBA0A53004360A8 /* AppDelegate.swift */; };
 		F7C836F21CBA0A53004360A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C836F11CBA0A53004360A8 /* ViewController.swift */; };
 		F7C836F51CBA0A53004360A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7C836F31CBA0A53004360A8 /* Main.storyboard */; settings = {ASSET_TAGS = (GetCurrentLocation, ); }; };
@@ -45,7 +44,6 @@
 		AA0B39AD15973BA44F4D39E2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6DC5D79D248C3412B76E821 /* Pods_smap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_smap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDirectionsRoute.swift; sourceTree = "<group>"; };
-		F78C750A1CC19E2D0085CD2B /* infobox.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = infobox.js; sourceTree = "<group>"; };
 		F7C836EC1CBA0A53004360A8 /* smap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = smap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7C836EF1CBA0A53004360A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7C836F11CBA0A53004360A8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 		F72C3E7B1CBC554B00AD5347 /* GMaps Helper */ = {
 			isa = PBXGroup;
 			children = (
-				F78C750A1CC19E2D0085CD2B /* infobox.js */,
 				F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */,
 			);
 			name = "GMaps Helper";
@@ -310,7 +307,6 @@
 			files = (
 				F7C836FA1CBA0A53004360A8 /* LaunchScreen.storyboard in Resources */,
 				F7C836F71CBA0A53004360A8 /* Assets.xcassets in Resources */,
-				F78C750B1CC19E2D0085CD2B /* infobox.js in Resources */,
 				F7C836F51CBA0A53004360A8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

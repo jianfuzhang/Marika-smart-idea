@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         placesClient = GMSPlacesClient()
-  
+        
         loadView()
     }
     
@@ -74,6 +74,8 @@ class ViewController: UIViewController {
         let operation = AFHTTPRequestOperation(request: request)
         operation.responseSerializer = AFJSONResponseSerializer()
         
+        var address: String!
+        
         operation.setCompletionBlockWithSuccess({ (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             
             if let result = responseObject as? NSDictionary {
@@ -92,12 +94,15 @@ class ViewController: UIViewController {
                     let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
                     mapView.myLocationEnabled = true
                     
-                    //get the bounds lat/lon
+                    //get the bounds lat/lon    //["legs"]["start_address"]
                     let bound_northeast_lat = routesJson[0]["bounds"]["northeast"]["lat"].number!
                     let bound_northeast_lng = routesJson[0]["bounds"]["northeast"]["lng"].number!
                     let bound_southwest_lat = routesJson[0]["bounds"]["southwest"]["lat"].number!
                     let bound_southwest_lng = routesJson[0]["bounds"]["southwest"]["lng"].number!
                     let bounds:String? = String(bound_northeast_lat)+","+String(bound_northeast_lng)+"|"+String(bound_southwest_lat)+","+String(bound_southwest_lng)
+                    let originAddress = "Origin Address" //routesJson[0]["legs"]["start_address"].string!
+                    let destinationAddress = "Destination Address"//routesJson[0]["legs"]["end_address"].string!
+                    
                     print (bounds)
                     
                     Business.searchWithTerm(searchBusiness, bounds: bounds!, sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
@@ -106,9 +111,10 @@ class ViewController: UIViewController {
                         for business in businesses {
                             let lat = business.lat
                             let lng = business.lng
+                            address = business.address
                             let coordinate = CLLocationCoordinate2D(latitude: lat!,longitude: lng!)
                             //                            let ll = CLLocationCoordinate2D(latitude: lat!,longitude: lon!)
-                            self.directions.drawMarkerWithCoordinates(UIColor.blueColor(), title: business.name!, coordinates: coordinate,onMap: mapView)
+                            self.directions.drawMarkerWithCoordinates(UIColor.blueColor(), title: business.name!, address: business.address!, coordinates: coordinate,onMap: mapView)
                             //                            print (lon)
                         }
                     })
@@ -117,8 +123,8 @@ class ViewController: UIViewController {
                     self.view = mapView
                     
                     self.directions.drawOnMap(mapView, path: path)
-                    self.directions.drawOriginMarkerOnMap(UIColor.greenColor(), title: "Origin", map: mapView, path: path)
-                    self.directions.drawDestinationMarkerOnMap(UIColor.redColor(), title: "Destination", map: mapView, path: path)
+                    self.directions.drawOriginMarkerOnMap(UIColor.greenColor(), title: "Origin", address: originAddress, map: mapView, path: path)
+                    self.directions.drawDestinationMarkerOnMap(UIColor.redColor(), title: "Destination", address: destinationAddress, map: mapView, path: path)
                     
                 }
             }
@@ -127,7 +133,7 @@ class ViewController: UIViewController {
             button.frame = CGRectMake(10, 10, 50, 50)
             button.setTitle("Back", forState: UIControlState.Normal)
             button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-    
+            
             self.view.addSubview(button)
             
         }) { (operation: AFHTTPRequestOperation!, error: NSError!)  -> Void in
