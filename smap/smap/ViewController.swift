@@ -60,6 +60,7 @@ class ViewController: UIViewController {
         
         let originAddr = _originAddr.text!
         let destAddr = _destAddr.text!
+        
         let searchBusiness = _searchBusiness.text!
         
         let urlString = ("\(service)?origin=\(originAddr)&destination=\(destAddr)&mode=driving&units=metric&sensor=true&key=AIzaSyC-LflNZIou4Lzdk8Wg_RM-MfvaWpqVdng").stringByReplacingOccurrencesOfString(" ", withString: "+")
@@ -73,8 +74,6 @@ class ViewController: UIViewController {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         let operation = AFHTTPRequestOperation(request: request)
         operation.responseSerializer = AFJSONResponseSerializer()
-        
-        var address: String!
         
         operation.setCompletionBlockWithSuccess({ (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             
@@ -94,16 +93,16 @@ class ViewController: UIViewController {
                     let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
                     mapView.myLocationEnabled = true
                     
-                    //get the bounds lat/lon    //["legs"]["start_address"]
+                    //get the bounds lat/lon
                     let bound_northeast_lat = routesJson[0]["bounds"]["northeast"]["lat"].number!
                     let bound_northeast_lng = routesJson[0]["bounds"]["northeast"]["lng"].number!
                     let bound_southwest_lat = routesJson[0]["bounds"]["southwest"]["lat"].number!
                     let bound_southwest_lng = routesJson[0]["bounds"]["southwest"]["lng"].number!
                     let bounds:String? = String(bound_northeast_lat)+","+String(bound_northeast_lng)+"|"+String(bound_southwest_lat)+","+String(bound_southwest_lng)
-                    let originAddress = "Origin Address" //routesJson[0]["legs"]["start_address"].string!
-                    let destinationAddress = "Destination Address"//routesJson[0]["legs"]["end_address"].string!
-                    
                     print (bounds)
+                    
+                    let originAddress = routesJson[0]["legs"][0]["start_address"].stringValue
+                    let destinationAddress = routesJson[0]["legs"][0]["end_address"].stringValue
                     
                     Business.searchWithTerm(searchBusiness, bounds: bounds!, sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
                         self.businesses = businesses
@@ -111,14 +110,11 @@ class ViewController: UIViewController {
                         for business in businesses {
                             let lat = business.lat
                             let lng = business.lng
-                            address = business.address
                             let coordinate = CLLocationCoordinate2D(latitude: lat!,longitude: lng!)
-                            //                            let ll = CLLocationCoordinate2D(latitude: lat!,longitude: lon!)
+                            
                             self.directions.drawMarkerWithCoordinates(UIColor.blueColor(), title: business.name!, address: business.address!, coordinates: coordinate,onMap: mapView)
-                            //                            print (lon)
                         }
                     })
-                    
                     
                     self.view = mapView
                     
