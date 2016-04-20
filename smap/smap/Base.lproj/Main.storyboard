@@ -106,10 +106,10 @@
             </objects>
             <point key="canvasLocation" x="-28" y="278"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Address Suggestion-->
         <scene sceneID="ahB-FJ-BOd">
             <objects>
-                <tableViewController storyboardIdentifier="AddressSuggestion" id="tD1-Ov-S0e" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AddressSuggestion" id="tD1-Ov-S0e" customClass="AddressSuggestion" customModule="smap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="VJG-lx-miH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -131,6 +131,14 @@
                                                         <segue destination="BYZ-38-t0r" kind="show" id="jCW-zl-iGf"/>
                                                     </connections>
                                                 </button>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bhd-ed-CkI">
+                                                    <rect key="frame" x="74" y="9" width="280" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="SearchWhileEditting:" destination="tD1-Ov-S0e" eventType="editingChanged" id="kg2-LV-YHs"/>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -142,10 +150,14 @@
                             <outlet property="delegate" destination="tD1-Ov-S0e" id="qHZ-vm-cOl"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="EditTextField" destination="bhd-ed-CkI" id="kVt-fB-8Cx"/>
+                        <outlet property="FirstLineTableView" destination="VJG-lx-miH" id="siO-Ha-fcX"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F30-dD-581" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-28" y="953"/>
+            <point key="canvasLocation" x="-28" y="944"/>
         </scene>
     </scenes>
 </document>

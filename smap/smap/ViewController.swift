@@ -159,7 +159,7 @@ class ViewController: UIViewController {
     @IBAction func OriginAddressChanged(sender: AnyObject) {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         
-        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("AddressSuggestion") as! UITableViewController
+        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("AddressSuggestion") as! AddressSuggestion
         
         self.presentViewController(nextViewController, animated:true, completion:nil)
     }
