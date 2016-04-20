@@ -63,6 +63,9 @@
                                         <variation key="heightClass=regular-widthClass=regular" ambiguous="YES">
                                             <rect key="frame" x="0.0" y="21" width="111" height="30"/>
                                         </variation>
+                                        <connections>
+                                            <action selector="OriginAddressChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="KnR-cH-0tb"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="What do you want to look for?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gj-5n-XQh">
                                         <rect key="frame" x="0.0" y="131" width="229" height="21"/>
