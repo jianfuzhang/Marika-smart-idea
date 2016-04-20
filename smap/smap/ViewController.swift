@@ -156,4 +156,12 @@ class ViewController: UIViewController {
             }
         })
     }
+    @IBAction func OriginAddressChanged(sender: AnyObject) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        
+        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("AddressSuggestion") as! UITableViewController
+        
+        self.presentViewController(nextViewController, animated:true, completion:nil)
+    }
+    
 }
