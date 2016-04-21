@@ -37,7 +37,7 @@
                                             <rect key="frame" x="0.0" y="21" width="111" height="30"/>
                                         </variation>
                                         <connections>
-                                            <action selector="OriginAddressChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="56V-0y-D7e"/>
+                                            <action selector="autofill_address:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="TO9-vi-1ao"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TYu-R8-z5p">
@@ -64,7 +64,7 @@
                                             <rect key="frame" x="0.0" y="21" width="111" height="30"/>
                                         </variation>
                                         <connections>
-                                            <action selector="OriginAddressChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="KnR-cH-0tb"/>
+                                            <action selector="autofill_address:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="Fr9-J1-lTH"/>
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="What do you want to look for?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gj-5n-XQh">

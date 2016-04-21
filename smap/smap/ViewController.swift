@@ -156,7 +156,7 @@ class ViewController: UIViewController {
             }
         })
     }
-    @IBAction func OriginAddressChanged(sender: AnyObject) {
+    @IBAction func autofill_address(sender: AnyObject) {
 //        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         
 //        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("AddressSuggestion") as! AddressSuggestion
