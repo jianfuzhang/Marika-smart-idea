@@ -106,58 +106,5 @@
             </objects>
             <point key="canvasLocation" x="-28" y="278"/>
         </scene>
-        <!--Address Suggestion-->
-        <scene sceneID="ahB-FJ-BOd">
-            <objects>
-                <tableViewController storyboardIdentifier="AddressSuggestion" id="tD1-Ov-S0e" customClass="AddressSuggestion" customModule="smap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="VJG-lx-miH">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <sections>
-                            <tableViewSection id="37T-RN-Eqi">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2BN-AA-zGw">
-                                        <rect key="frame" x="0.0" y="35" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2BN-AA-zGw" id="NhF-PU-5hX">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9S-mp-fcJ">
-                                                    <rect key="frame" x="18" y="8" width="48" height="30"/>
-                                                    <state key="normal" title="Cancle"/>
-                                                    <connections>
-                                                        <segue destination="BYZ-38-t0r" kind="show" id="jCW-zl-iGf"/>
-                                                    </connections>
-                                                </button>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bhd-ed-CkI">
-                                                    <rect key="frame" x="74" y="9" width="280" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="SearchWhileEditting:" destination="tD1-Ov-S0e" eventType="editingChanged" id="kg2-LV-YHs"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="tD1-Ov-S0e" id="W2F-HK-ucD"/>
-                            <outlet property="delegate" destination="tD1-Ov-S0e" id="qHZ-vm-cOl"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="EditTextField" destination="bhd-ed-CkI" id="kVt-fB-8Cx"/>
-                        <outlet property="FirstLineTableView" destination="VJG-lx-miH" id="siO-Ha-fcX"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="F30-dD-581" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-28" y="944"/>
-        </scene>
     </scenes>
 </document>

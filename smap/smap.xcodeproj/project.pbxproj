@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8C993741F04C777D72605F1D /* Pods_smap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DC5D79D248C3412B76E821 /* Pods_smap.framework */; };
-		B029438A1CC70BEC00864763 /* AddressSuggestionTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02943891CC70BEC00864763 /* AddressSuggestionTableVC.swift */; };
 		CFE98D40140A251747D7EF38 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0B39AD15973BA44F4D39E2 /* Pods.framework */; };
 		F72C3E7D1CBC558600AD5347 /* GoogleDirectionsRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */; };
 		F760B7781CC70FA60087E67D /* RouteBoxer.java in Sources */ = {isa = PBXBuildFile; fileRef = F760B7771CC70FA60087E67D /* RouteBoxer.java */; };
@@ -45,7 +44,6 @@
 		27F40CE45BED21DC2498CEE7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		94174D813ABD911047256AED /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA0B39AD15973BA44F4D39E2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B02943891CC70BEC00864763 /* AddressSuggestionTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressSuggestionTableVC.swift; sourceTree = "<group>"; };
 		D6DC5D79D248C3412B76E821 /* Pods_smap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_smap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDirectionsRoute.swift; sourceTree = "<group>"; };
 		F760B7771CC70FA60087E67D /* RouteBoxer.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; name = RouteBoxer.java; path = ../../../Downloads/RouteBoxer.java; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				F7C836F11CBA0A53004360A8 /* ViewController.swift */,
-				B02943891CC70BEC00864763 /* AddressSuggestionTableVC.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -390,7 +387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F760B7781CC70FA60087E67D /* RouteBoxer.java in Sources */,
-				B029438A1CC70BEC00864763 /* AddressSuggestionTableVC.swift in Sources */,
 				F760B77A1CC70FB20087E67D /* RouteBoxer.swift in Sources */,
 				F7C837251CBA0FD9004360A8 /* YelpClient.swift in Sources */,
 				F7C837221CBA0DC1004360A8 /* Business.swift in Sources */,
