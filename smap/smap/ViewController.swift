@@ -156,7 +156,10 @@ class ViewController: UIViewController {
             }
         })
     }
-    @IBAction func autofill_address(sender: AnyObject) {
+    
+    var fill_which: String?
+    
+    @IBAction func autofill_address(sender: UITextField) {
 //        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         
 //        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("AddressSuggestion") as! AddressSuggestion
@@ -165,6 +168,12 @@ class ViewController: UIViewController {
         
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
+        if sender.tag == 1 {
+            fill_which = "origin"
+        }
+        else if sender.tag == 2 {
+            fill_which = "destination"
+        }
         self.presentViewController(autocompleteController, animated: true, completion: nil)
         
     }
@@ -172,12 +181,21 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: GMSAutocompleteViewControllerDelegate {
-    
+
     // Handle the user's selection.
     func viewController(viewController: GMSAutocompleteViewController, didAutocompleteWithPlace place: GMSPlace) {
-        print("Place name: ", place.name)
-        print("Place address: ", place.formattedAddress)
-        print("Place attributions: ", place.attributions)
+    //    print("Place name: ", place.name)
+    //    print("Place address: ", place.formattedAddress)
+    //    print("Place attributions: ", place.attributions)
+        if fill_which != nil{
+            if fill_which! == "origin" {
+                _originAddr.text = place.formattedAddress
+            }
+            if fill_which! == "destination" {
+                _destAddr.text = place.formattedAddress
+            }
+        }
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
