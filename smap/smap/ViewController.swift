@@ -89,7 +89,7 @@ class ViewController: UIViewController {
                         (path?.coordinateAtIndex(0).latitude)!,
                         longitude: (path?.coordinateAtIndex(0).longitude)!,
                         zoom: 15)
-                    
+                       
                     let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
                     mapView.myLocationEnabled = true
                     
