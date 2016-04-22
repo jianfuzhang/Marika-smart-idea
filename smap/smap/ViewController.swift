@@ -103,16 +103,35 @@ class ViewController: UIViewController {
                     
 
                     
-                    let a: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 50.5, lng2: 30.5)
-                    let b: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 50.4, lng2: 30.6)
-                    let c: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 50.3, lng2: 30.7)
-
+                   
+                    //----------------------------------- RouteBoxer part -----------------------------------
+                   
+                    //Hardcoded 3 LatLng values to create route
+                    //TODO: Create "route" from routesJson
+                    let a: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 37.387030, lng2: -122.114448)
+                    let b: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 37.287030, lng2: -122.214448)
+                    let c: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 37.187030, lng2: -122.314448)
+                    
                     let route: [RouteBoxer.LatLng] = [a, b, c]
 
-                    //Step 1: Uses RouteBoxer.swift to create box
-                    var boxes = RouteBoxer().box(route, range: 10)
+                    
+                    //Hardcoded 4 lat/long points to create box and draw on mapView
+                    //TODO: Use the lat/long values from "route" for coordinates
+                    
+                    let boxes: [RouteBoxer.LatLngBounds] = RouteBoxer().box(route, range: 10)
+                    let path2 = GMSMutablePath()
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: 37.386922659594092, longitude: -122.11463652518454))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: 37.386922659594092, longitude: -122.11452361627637))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: 37.387192154179324, longitude: -122.11429779846004))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: 37.387192154179324, longitude: -122.11452361627637))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: 37.386922659594092, longitude: -122.11463652518454))
 
-       
+                    let rectangle = GMSPolyline(path: path2)
+                    
+                    rectangle.map = mapView
+                    
+                    //------------------------------------------------------------------------------------------
+
                     let originAddress = routesJson[0]["legs"][0]["start_address"].stringValue
                     let destinationAddress = routesJson[0]["legs"][0]["end_address"].stringValue
                     
@@ -149,6 +168,7 @@ class ViewController: UIViewController {
         }
         operation.start()
     }
+    
     
     @IBAction func GetCurrentLocation(sender: UIButton) {
         placesClient?.currentPlaceWithCallback({

@@ -345,10 +345,6 @@ public class RouteBoxer {
         var currentBox: RouteBoxer.LatLngBounds? = nil
         
         
-        
-        //--- Fix this part: when (currentBox == nil) not entering the if statement
-        
-        
         //traverse the grid a row at a time
         for var y = 0; y < self.grid_[0].count; y+=1 {
             for var x = 0; x < self.grid_.count; x+=1 {
@@ -357,20 +353,18 @@ public class RouteBoxer {
                     let box = self.getCellBounds_(cell)
                     
                     if currentBox != nil {
-                        let currentBox = currentBox!.extend(box.getNorthEast())
-                    }
-                    
-                    if currentBox == nil {
-                        let currentBox = box
+                        currentBox!.extend(box.getNorthEast())
+                    } else {
+                        currentBox = box
                     }
                 }
                 else {
                     self.mergeBoxesY_(currentBox)
-                    let currentBox: LatLngBounds? = nil
+                    currentBox = nil
                 }
             }
             self.mergeBoxesY_(currentBox)
-            let currentBox: LatLngBounds? = nil
+            currentBox = nil
         }
         
         //traverse the grid a column at a time
@@ -380,19 +374,17 @@ public class RouteBoxer {
                     let cell: [Int] = [x,y]
                     if (currentBox != nil) {
                         let box = self.getCellBounds_(cell)
-                        let currentBox = currentBox?.extend(box.getNorthEast())
-                    }
-                    
-                    if (currentBox == nil) {
-                        let currentBox: LatLngBounds = self.getCellBounds_(cell)
+                        currentBox?.extend(box.getNorthEast())
+                    } else {
+                        currentBox = self.getCellBounds_(cell)
                     }
                 } else {
                     self.mergeBoxesX_(currentBox)
-                    let currentBox: LatLngBounds? = nil
+                    currentBox = nil
                 }
             }
-            self.mergeBoxesY_(currentBox)
-            let currentBox: LatLngBounds? = nil
+            self.mergeBoxesX_(currentBox)
+            currentBox = nil
 
       }
     }
