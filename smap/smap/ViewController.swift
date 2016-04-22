@@ -89,7 +89,7 @@ class ViewController: UIViewController {
                         (path?.coordinateAtIndex(0).latitude)!,
                         longitude: (path?.coordinateAtIndex(0).longitude)!,
                         zoom: 15)
-                       
+                    
                     let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
                     mapView.myLocationEnabled = true
                     
@@ -101,6 +101,18 @@ class ViewController: UIViewController {
                     let bounds:String? = String(bound_northeast_lat)+","+String(bound_northeast_lng)+"|"+String(bound_southwest_lat)+","+String(bound_southwest_lng)
                     print (bounds)
                     
+
+                    
+                    let a: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 50.5, lng2: 30.5)
+                    let b: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 50.4, lng2: 30.6)
+                    let c: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 50.3, lng2: 30.7)
+
+                    let route: [RouteBoxer.LatLng] = [a, b, c]
+
+                    //Step 1: Uses RouteBoxer.swift to create box
+                    var boxes = RouteBoxer().box(route, range: 10)
+
+       
                     let originAddress = routesJson[0]["legs"][0]["start_address"].stringValue
                     let destinationAddress = routesJson[0]["legs"][0]["end_address"].stringValue
                     

@@ -18,12 +18,12 @@ public class RouteBoxer {
     final let EarthRadiusKm: Int = 6371
     
     public class LatLng {
-        public var _lat: Double
-        public var _lng: Double
+        public var lat: Double
+        public var lng: Double
         
-        var lat : Double {
+        var _lat : Double {
             get {
-                return self._lat
+                return self.lat
             }
             
             set {
@@ -31,9 +31,9 @@ public class RouteBoxer {
             }
         }
         
-        var lng : Double {
+        var _lng : Double {
             get {
-                return self._lng
+                return self.lng
             }
             
             set {
@@ -42,21 +42,21 @@ public class RouteBoxer {
         }
         
         init() {
-            _lat = 0
-            _lng = 0
+            lat = 0
+            lng = 0
         }
         
         init(lat2: Double, lng2: Double) {
-            _lat = lat2
-            _lng = lng2
+            lat = lat2
+            lng = lng2
         }
         
         public func latRad() -> Double {
-            return RouteBoxer().toRad(_lat)
+            return RouteBoxer().toRad(lat)
         }
         
         public func lngRad() -> Double {
-            return RouteBoxer().toRad(_lng)
+            return RouteBoxer().toRad(lng)
         }
         
         public func rhumbDestinationPoint( brng: Double, dist: Double) -> LatLng {
@@ -75,7 +75,7 @@ public class RouteBoxer {
             
             var lat2: Double = lat1 + dLat
             let dPhi: Double = log2(tan(lat2/2+M_PI/4)/tan(lat1/2+M_PI/4))
-            let q: Double = dPhi != 0 ? dLat/dPhi : cos(lat1)
+            let q: Double = (dPhi != 0) ? dLat/dPhi : cos(lat1)
             let dLon: Double = d*sin(brng)/q
             
             if (abs(lat2) > M_PI/2) {
@@ -137,6 +137,9 @@ public class RouteBoxer {
         private var southwest: LatLng?
         private var northeast: LatLng?
         
+        init(){
+        }
+        
         init(southwest: LatLng, northeast: LatLng) {
             self.southwest = southwest
             self.northeast = northeast
@@ -147,7 +150,7 @@ public class RouteBoxer {
         }
         
         public func setSouthWest(southwest: LatLng) -> Void {
-            self.southwest = southwest
+            self.southwest! = southwest
         }
         
         public func getNorthEast() -> LatLng {
@@ -158,11 +161,38 @@ public class RouteBoxer {
             self.northeast = northeast
         }
         
-        public func equals(o: NSObject) -> Bool { //fix
-            return true
-        }
+//        public func equals(o: NSObject) -> Bool {
+//            if self == o {
+//                return true
+//            }
+//            if o == nil || getClass()
+//        }
         
-        public func extend(latLng: LatLng) -> Void { //fix
+        public func extend(latLng: LatLng) -> Void {
+            if southwest == nil {
+                southwest = latLng.clone()
+                
+                if northeast == nil {
+                    northeast = latLng.clone()
+                    return
+                }
+            }
+            if northeast == nil {
+                northeast = latLng.clone()
+                return
+            }
+            
+            if latLng.lat < southwest?.lat {
+                southwest!.lat = latLng.lat
+            } else if (latLng.lat > northeast!.lat) {
+                northeast!.lat = latLng.lat
+            }
+            if (latLng.lng < southwest!.lng) {
+                southwest!.lng = latLng.lng
+            }
+            else if (latLng.lng>northeast!.lng) {
+                northeast!.lng=latLng.lng
+            }
         }
         
         public func contains(latLng: LatLng) -> Bool {
@@ -184,7 +214,10 @@ public class RouteBoxer {
         }
         
         public func getCenter() -> LatLng {
-            return LatLng.init(lat2: southwest!.lat + (northeast!.lat - southwest!.lat)/2, lng2: southwest!.lng+(northeast!.lng-southwest!.lng)/2)
+            let a: Double = southwest!.lat+(northeast!.lat-southwest!.lat)/2
+            let b: Double = southwest!.lng+(northeast!.lng-southwest!.lng)/2
+            return LatLng.init(lat2: a, lng2: b)
+
         }
         
         public func hashCode() -> Int { //fix
@@ -197,11 +230,11 @@ public class RouteBoxer {
         }
     }
     
-    private var grid_: [[Int]]? = nil
-    private var latGrid_: [Double]? = nil
-    private var lngGrid_: [Double]? = nil
-    private var boxesX_: [LatLngBounds]? = nil
-    private var boxesY_: [LatLngBounds]? = nil
+    private var grid_:[[Int]] = [[]]
+    private var latGrid_: [Double] = []
+    private var lngGrid_: [Double] = []
+    private var boxesX_: [LatLngBounds] = []
+    private var boxesY_: [LatLngBounds] = []
     
     
     public func decodePath(encodedPoints: String) -> [LatLng] {
@@ -242,44 +275,65 @@ public class RouteBoxer {
     }
     
     public func box(path: [LatLng], range: Double) -> [LatLngBounds] {
-        self.grid_ = nil
-        self.latGrid_ = nil
-        self.lngGrid_ = nil
-        self.boxesX_ = nil
-        self.boxesY_ = nil
-        let vertices: [LatLng]? = path
+        self.grid_ = [[]]
+        self.latGrid_ = []
+        self.lngGrid_ = []
+        self.boxesX_ = []
+        self.boxesY_ = []
+        let vertices: [LatLng] = path
         
-        buildGrid_(vertices!, range: range)
-        findIntersectingCells_(vertices!)
+        buildGrid_(vertices, range: range)
+        findIntersectingCells_(vertices)
         mergeIntersectingCells_()
         
-        return (self.boxesX_?.count <= self.boxesY_?.count ? self.boxesX_ : self.boxesY_)!
+        let t: [RouteBoxer.LatLngBounds] = self.boxesX_.count <= self.boxesY_.count ? self.boxesX_ : self.boxesY_
+        
+        return t
         
     }
     
     public func buildGrid_(vertices: [LatLng], range: Double) -> Void{
-        let routeBounds: LatLngBounds? = nil
+        let routeBounds: RouteBoxer.LatLngBounds = RouteBoxer.LatLngBounds()
         
-        for object in vertices as [LatLng] {
-            routeBounds!.extend(object)
+        
+        for var i=0; i<vertices.count; i++ {
+            routeBounds.extend(vertices[i])
         }
         
-        let routeBoundsCenter: LatLng = routeBounds!.getCenter()
-        latGrid_!.append(routeBoundsCenter.lat)
+        let routeBoundsCenter: LatLng = routeBounds.getCenter()
+
+        latGrid_.append(routeBoundsCenter.lat)
         let rhumb: LatLng = routeBoundsCenter.rhumbDestinationPoint(0, dist: range)
         
-        latGrid_!.append(rhumb.lat)
+        latGrid_.append(rhumb.lat)
         
-        for var i = 2; latGrid_![i-2] < routeBounds!.getNorthEast().lat; i += 1 {
-            latGrid_!.append(routeBoundsCenter.rhumbDestinationPoint(0, dist: range * Double(i)).lat)
+
+        for (var i = 2; latGrid_[i-2] < routeBounds.getNorthEast().lat; i += 1) {
+            latGrid_.append(routeBoundsCenter.rhumbDestinationPoint(0, dist: range * Double(i)).lat);
         }
         
-        for var i1 = 2; latGrid_![i1-2] < routeBounds!.getNorthEast().lat; i1 += 1 {
-            latGrid_!.append(routeBoundsCenter.rhumbDestinationPoint(270, dist: range * Double(i1)).lng)
+        for var i1 = 2; latGrid_[i1-2] < routeBounds.getNorthEast().lat; i1 += 1 {
+            latGrid_.append(routeBoundsCenter.rhumbDestinationPoint(270, dist: range * Double(i1)).lng)
         }
         
-        let grid_: [[Int]] = [lngGrid_!.count][latGrid_!.count] as! [[Int]]
+        lngGrid_.append(routeBoundsCenter.lng)
+        lngGrid_.append(routeBoundsCenter.rhumbDestinationPoint(90, dist: range).lng)
         
+        for var i2 = 2; lngGrid_[i2 - 2] < routeBounds.getNorthEast().lng; i2++ {
+            lngGrid_.append(routeBoundsCenter.rhumbDestinationPoint(90, dist: range * Double(i2)).lng);
+        }
+   
+        for var i3 = 1; lngGrid_[1] > routeBounds.getSouthWest().lng; i3 += 1 {
+            lngGrid_.insert(routeBoundsCenter.rhumbDestinationPoint(270, dist: range * Double(i3)).lng, atIndex: 0)
+        }
+    
+        var rows = lngGrid_.count, cols = latGrid_.count
+
+        //TODO: did a fix around. fix later
+        for var i=0; i<cols+1; i++ {
+                self.grid_.insert([Int](count: rows, repeatedValue:Int()), atIndex: i)
+         }
+        self.grid_.removeAtIndex(cols+1)
     }
     
     private func mergeIntersectingCells_() -> Void {
@@ -288,20 +342,29 @@ public class RouteBoxer {
         
         let box: LatLngBounds
         
-        let currentBox: LatLngBounds? = nil
+        var currentBox: RouteBoxer.LatLngBounds? = nil
         
-        for var y = 0; y < self.grid_![0].count; y+=1 {
-            for var x = 0; x < self.grid_!.count; x+=1 {
-                if (self.grid_![x][y]==1) {
+        
+        
+        //--- Fix this part: when (currentBox == nil) not entering the if statement
+        
+        
+        //traverse the grid a row at a time
+        for var y = 0; y < self.grid_[0].count; y+=1 {
+            for var x = 0; x < self.grid_.count; x+=1 {
+                if (self.grid_[x][y]==1) {
                     let cell: [Int] = [x,y]
                     let box = self.getCellBounds_(cell)
-                    if (currentBox != nil) {
-                        currentBox?.extend(box.getNorthEast())
-                    } else {
-                        let currentBox = box
-
+                    
+                    if currentBox != nil {
+                        let currentBox = currentBox!.extend(box.getNorthEast())
                     }
-                } else {
+                    
+                    if currentBox == nil {
+                        let currentBox = box
+                    }
+                }
+                else {
                     self.mergeBoxesY_(currentBox)
                     let currentBox: LatLngBounds? = nil
                 }
@@ -309,42 +372,90 @@ public class RouteBoxer {
             self.mergeBoxesY_(currentBox)
             let currentBox: LatLngBounds? = nil
         }
+        
+        //traverse the grid a column at a time
+        for var x = 0; x < self.grid_[0].count; x+=1 {
+            for var y = 0; y < self.grid_[0].count; y+=1 {
+                if (self.grid_[x][y] == 1) {
+                    let cell: [Int] = [x,y]
+                    if (currentBox != nil) {
+                        let box = self.getCellBounds_(cell)
+                        let currentBox = currentBox?.extend(box.getNorthEast())
+                    }
+                    
+                    if (currentBox == nil) {
+                        let currentBox: LatLngBounds = self.getCellBounds_(cell)
+                    }
+                } else {
+                    self.mergeBoxesX_(currentBox)
+                    let currentBox: LatLngBounds? = nil
+                }
+            }
+            self.mergeBoxesY_(currentBox)
+            let currentBox: LatLngBounds? = nil
+
+      }
     }
     
+    public func mergeBoxesX_(box: LatLngBounds?) -> Void {
+        if (box != nil) {
+            for var i = 1; i<self.boxesX_.count; i++ {
+                if (abs(self.boxesX_[i].getNorthEast().lng - box!.getSouthWest().lng)<0.001 &&
+                    abs(self.boxesX_[i].getSouthWest().lat - box!.getSouthWest().lat)<0.001 &&
+                    abs(self.boxesX_[i].getNorthEast().lat - box!.getNorthEast().lat)<0.001) {
+                    self.boxesX_[i].extend(box!.getNorthEast());
+                    return;
+                }
+                
+            }
+            self.boxesX_.append(box!)
+        }
+    }
     public func mergeBoxesY_(box: LatLngBounds?) -> Void {
         if (box != nil) {
-            for var i = 0; i < self.boxesY_!.count; i+=1 {
-                if (abs(self.boxesY_![i].getNorthEast().lat - (box?.getSouthWest().lat)!) < 0.001 && abs(self.boxesY_![i].getSouthWest().lng) < 0.001 && abs(self.boxesY_![i].getNorthEast().lng - (box?.getNorthEast().lng)!) < 0.001) {
-                    self.boxesY_![i].extend((box?.getNorthEast())!)
+            for var i = 0; i < self.boxesY_.count; i+=1 {
+                if (abs(self.boxesY_[i].getNorthEast().lat - (box?.getSouthWest().lat)!) < 0.001 && abs(self.boxesY_[i].getSouthWest().lng) < 0.001 && abs(self.boxesY_[i].getNorthEast().lng - (box?.getNorthEast().lng)!) < 0.001) {
+                    self.boxesY_[i].extend((box?.getNorthEast())!)
                     return
                 }
             }
-            self.boxesY_?.append(box!)
+            self.boxesY_.append(box!)
         }
     }
     
     func getCellBounds_(cell: [Int]) -> LatLngBounds {
-        return LatLngBounds.init(southwest: LatLng.init(lat2: self.latGrid_![cell[1]], lng2: self.lngGrid_![cell[0]]), northeast: LatLng.init(lat2: self.latGrid_![cell[1]+1], lng2: self.lngGrid_![cell[0]+1]))
+        return LatLngBounds.init(southwest: LatLng.init(lat2: self.latGrid_[cell[1]], lng2: self.lngGrid_[cell[0]]), northeast: LatLng.init(lat2: self.latGrid_[cell[1]+1], lng2: self.lngGrid_[cell[0]+1]))
     }
     
     private func getGridCoordsFromHint_(latlng: LatLng, hintlatlng: LatLng, hint: [Int]) -> [Int]{
         let x: Int = 0
         let y: Int = 0
         
+        var xCount: Int = 0
+        var yCount: Int = 0
+        
         //try {
         if (latlng.lng > hintlatlng.lng) {
-            for var x = hint[0]; self.lngGrid_![x+1] < latlng.lng; x += 1 {}
+            for var x = hint[0]; self.lngGrid_[x+1] < latlng.lng; x += 1 {
+                xCount++
+            }
         } else {
-            for var x = hint[0]; self.lngGrid_![x] > latlng.lng; x -= 1 {}
+            for var x = hint[0]; self.lngGrid_[x] > latlng.lng; x -= 1 {
+                xCount++
+            }
         }
         
         if (latlng.lat > hintlatlng.lat) {
-            for var y = hint[1]; self.latGrid_![y+1] < latlng.lat; y += 1 {}
+            for var y = hint[1]; self.latGrid_[y+1] < latlng.lat; y += 1 {
+                yCount++
+            }
         } else {
-            for var y = hint[1]; self.latGrid_![y] > latlng.lat; y -= 1 {}
+            for var y = hint[1]; self.latGrid_[y] > latlng.lat; y -= 1 {
+                yCount++
+            }
         }
         //}catch ()
-        let result: [Int] = [x, y]
+        let result: [Int] = [xCount, yCount]
         return result
     }
     
@@ -352,17 +463,18 @@ public class RouteBoxer {
         let hintXY: [Int] = getCellCoords_(vertices[0])
         markCell_(hintXY)
         
-        for var i = 1; i < vertices.count; i += 1 {
+        //fix: supposed to just be vertices.count
+        for var i = 1; i < vertices.count-1; i++ {
             let gridXY: [Int] = getGridCoordsFromHint_(vertices[i], hintlatlng: vertices[i-1], hint: hintXY)
             
             if (gridXY[0] == hintXY[0] && gridXY[1] == hintXY[1]) {
                 continue
-            } else if ((abs(hintXY[0] - gridXY[0]) == 1 && hintXY[1] == gridXY[1]) || hintXY[0] == gridXY[0] && abs(hintXY[1] - gridXY[1]) == 1) {
-                markCell_(gridXY)
+            } else if ((abs(hintXY[0] - gridXY[0]) == 1 && hintXY[1] == gridXY[1]) || hintXY[0] == gridXY[0] &&  abs(hintXY[1] - gridXY[1]) == 1) {
+               self.markCell_(gridXY)
             } else {
-                
+                self.getGridIntersects_(vertices[i - 1], end: vertices[i], startXY: hintXY, endXY: gridXY)
             }
-            
+            let hintXY = gridXY;
         }
     }
     
@@ -377,7 +489,7 @@ public class RouteBoxer {
         
         if (end.lat > start.lat) {
             for var i = startXY[1]; i <= endXY[1]; i++ {
-                let edgePoint = getGridIntersect_(start, brng: brng, gridLineLat: latGrid_![i])
+                let edgePoint = getGridIntersect_(start, brng: brng, gridLineLat: latGrid_[i])
                 let edgeXY = getGridCoordsFromHint_(edgePoint, hintlatlng: hint, hint: hintXY)
                 
                 fillInGridSquares_(hintXY[0], endx: edgeXY[0], y: i-1)
@@ -409,11 +521,18 @@ public class RouteBoxer {
     }
     
     private func getCellCoords_(latlng: LatLng) -> [Int]{
-        let x: Int? = nil
-        let y: Int? = nil
-        for var x = 0; lngGrid_![x] < latlng.lng; x += 1 {}
-        for var y = 0; latGrid_![y] < latlng.lat; y += 1 {}
-        let result: [Int] = [x!-1, y!-1]
+        var xCount: Int = 0
+        var yCount: Int = 0
+        for var x = 0; self.lngGrid_[x] < latlng.lng; x++ {
+            xCount++
+        }
+        
+        
+        for var y = 0; self.latGrid_[y] < latlng.lat; y++ {
+            yCount++
+        }
+        
+        let result: [Int] = [xCount-1, yCount-1]
         
         return result
     }
@@ -422,15 +541,15 @@ public class RouteBoxer {
         let x: Int = cell[0]
         let y: Int = cell[1]
         //--> try {
-        self.grid_![x - 1][y - 1] = 1;
-        self.grid_![x][y - 1] = 1;
-        self.grid_![x + 1][y - 1] = 1;
-        self.grid_![x - 1][y] = 1;
-        self.grid_![x][y] = 1;
-        self.grid_![x + 1][y] = 1;
-        self.grid_![x - 1][y + 1] = 1;
-        self.grid_![x][y + 1] = 1;
-        self.grid_![x + 1][y + 1] = 1;
+        self.grid_[x - 1][y - 1] = 1;
+        self.grid_[x][y - 1] = 1;
+        self.grid_[x + 1][y - 1] = 1;
+        self.grid_[x - 1][y] = 1;
+        self.grid_[x][y] = 1;
+        self.grid_[x + 1][y] = 1;
+        self.grid_[x - 1][y + 1] = 1;
+        self.grid_[x][y + 1] = 1;
+        self.grid_[x + 1][y + 1] = 1;
         // --> catch ()
         
         
