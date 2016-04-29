@@ -12,6 +12,8 @@ import AFNetworking
 import GoogleMaps
 import Polyline
 import WebKit
+import JavaScriptCore
+
 
 class ViewController: UIViewController {
 
@@ -104,23 +106,45 @@ class ViewController: UIViewController {
                     let bounds:String? = String(bound_northeast_lat)+","+String(bound_northeast_lng)+"|"+String(bound_southwest_lat)+","+String(bound_southwest_lng)
                     print (bounds)
                     
-                    //----------------------------------- RouteBoxer part -----------------------------------
-                    
                     let polyline = Polyline(encodedPolyline: points)
                     let decodedCoordinates: [CLLocationCoordinate2D]? = polyline.coordinates
                     
-                    let t = decodedCoordinates![0].latitude
-                    
                     var route: [RouteBoxer.LatLng] = []
-
                     
-                    for var i = 0; i < 3; i += 1 {
+                    
+                    for var i = 0; i < 10; i += 1 {
                         let p: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![i].latitude, lng2: decodedCoordinates![i].longitude)
                      
                             route.append(p)
                     }
                     
                     
+                    //////////////////////////////////////////////////////////////////////////////
+                    
+                    let context = JSContext()
+                    
+                    // get path to the pagedown source file
+                    let pathFile = NSBundle.mainBundle().pathForResource("RouteBoxer", ofType: "js")
+                   
+                    
+                    // get the contentData for the file
+                    let contentData = NSFileManager.defaultManager().contentsAtPath(pathFile!)
+                    
+                    // get the string from the data
+                    let content = NSString(data: contentData!, encoding: NSUTF8StringEncoding) as? String
+                    
+                    // finally inject it into the js context
+                    
+                    context.evaluateScript(content)
+                    
+                    //TODO: initGoogle() IS A PROBLEM.
+                    let x: Int = 3
+                    let script = "var rb = new RouteBoxer(); rb.myFunction("+String(x)+",4);"
+                    
+                    let resultScript = context.evaluateScript(script)
+                    
+                    
+
 //                    let a: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![0].latitude, lng2: decodedCoordinates![0].longitude)
 //                    
 //                    let b: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![1].latitude, lng2: decodedCoordinates![1].longitude)
@@ -128,7 +152,7 @@ class ViewController: UIViewController {
 //                    let c: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![2].latitude, lng2: decodedCoordinates![2].longitude)
 //
 
-                    let boxes: [RouteBoxer.LatLngBounds] = RouteBoxer().box(route, range: 10)
+                    let boxes: [RouteBoxer.LatLngBounds] = RouteBoxer().box(route, range: 1)
                     
                     let path2 = GMSMutablePath()
                     

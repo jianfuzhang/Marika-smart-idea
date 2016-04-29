@@ -510,7 +510,7 @@ public class RouteBoxer {
         for y = 0; self.latGrid_[y] < latlng.lat; y+=1 {
         }
         
-        var result: [Int] = [x-1, y-1]
+        var result: [Int] = [x, y]
         
         return result
     }
@@ -519,15 +519,20 @@ private func markCell_(cell: [Int]) -> Void {
         let x: Int = cell[0]
         let y: Int = cell[1]
         //--> try {
+    if y>0 && x>0 {
         self.grid_[x - 1][y - 1] = 1;
+
         self.grid_[x][y - 1] = 1;
         self.grid_[x + 1][y - 1] = 1;
+ 
         self.grid_[x - 1][y] = 1;
+        self.grid_[x - 1][y + 1] = 1;
+    
         self.grid_[x][y] = 1;
         self.grid_[x + 1][y] = 1;
-        self.grid_[x - 1][y + 1] = 1;
         self.grid_[x][y + 1] = 1;
         self.grid_[x + 1][y + 1] = 1;
+    }
         // --> catch ()
         
         

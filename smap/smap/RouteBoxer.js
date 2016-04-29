@@ -38,10 +38,13 @@
  * @constructor
  */
 function RouteBoxer() {
-    this.R = 6371; // earth's mean radius in km
-    this.initGoogle();
+    //this.R = 6371; // earth's mean radius in km
+    //this.initGoogle();
 }
 
+RouteBoxer.prototype.myFunction = function(p1, p2) {
+    return p1 * p2;
+}
 /**
  * Generates boxes for a given route and distance
  *
