@@ -10,8 +10,11 @@ import UIKit
 import SwiftyJSON
 import AFNetworking
 import GoogleMaps
+import Polyline
+import WebKit
 
 class ViewController: UIViewController {
+
     
     @IBOutlet var mapView: GMSMapView!
     var london: GMSMarker!
@@ -101,36 +104,45 @@ class ViewController: UIViewController {
                     let bounds:String? = String(bound_northeast_lat)+","+String(bound_northeast_lng)+"|"+String(bound_southwest_lat)+","+String(bound_southwest_lng)
                     print (bounds)
                     
-
-                    
-                   
                     //----------------------------------- RouteBoxer part -----------------------------------
-                   
-                    //Hardcoded 3 LatLng values to create route
-                    //TODO: Create "route" from routesJson
-                    let a: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 37.387030, lng2: -122.114448)
-                    let b: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 37.287030, lng2: -122.214448)
-                    let c: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: 37.187030, lng2: -122.314448)
                     
-                    let route: [RouteBoxer.LatLng] = [a, b, c]
+                    let polyline = Polyline(encodedPolyline: points)
+                    let decodedCoordinates: [CLLocationCoordinate2D]? = polyline.coordinates
+                    
+                    let t = decodedCoordinates![0].latitude
+                    
+                    var route: [RouteBoxer.LatLng] = []
 
                     
-                    //Hardcoded 4 lat/long points to create box and draw on mapView
-                    //TODO: Use the lat/long values from "route" for coordinates
+                    for var i = 0; i < 3; i += 1 {
+                        let p: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![i].latitude, lng2: decodedCoordinates![i].longitude)
+                     
+                            route.append(p)
+                    }
                     
+                    
+//                    let a: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![0].latitude, lng2: decodedCoordinates![0].longitude)
+//                    
+//                    let b: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![1].latitude, lng2: decodedCoordinates![1].longitude)
+//                    
+//                    let c: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![2].latitude, lng2: decodedCoordinates![2].longitude)
+//
+
                     let boxes: [RouteBoxer.LatLngBounds] = RouteBoxer().box(route, range: 10)
+                    
                     let path2 = GMSMutablePath()
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: 37.386922659594092, longitude: -122.11463652518454))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: 37.386922659594092, longitude: -122.11452361627637))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: 37.387192154179324, longitude: -122.11429779846004))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: 37.387192154179324, longitude: -122.11452361627637))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: 37.386922659594092, longitude: -122.11463652518454))
+                    
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].getSouthWest().lat, longitude: boxes[0].getSouthWest().lng))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].getSouthWest().lat, longitude: boxes[0].getNorthEast().lng))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].getNorthEast().lat, longitude: boxes[0].getNorthEast().lng))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].getNorthEast().lat, longitude: boxes[0].getSouthWest().lng))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].getSouthWest().lat, longitude: boxes[0].getSouthWest().lng))
+
 
                     let rectangle = GMSPolyline(path: path2)
                     
                     rectangle.map = mapView
                     
-                    //------------------------------------------------------------------------------------------
 
                     let originAddress = routesJson[0]["legs"][0]["start_address"].stringValue
                     let destinationAddress = routesJson[0]["legs"][0]["end_address"].stringValue

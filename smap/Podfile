@@ -5,6 +5,7 @@ platform :ios, '8.1'
 pod 'GoogleMaps'
 pod 'AFNetworking', '~> 2.5'
 pod 'BDBOAuth1Manager'
+pod 'Polyline', '~> 3.0'
 
 target 'smap' do
     pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
