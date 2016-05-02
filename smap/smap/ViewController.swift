@@ -123,6 +123,11 @@ class ViewController: UIViewController {
                     
                     let context = JSContext()
                     
+                    context.exceptionHandler = { context, exception in
+                        print("JS Error: \(exception)")
+                    }
+
+                    
                     // get path to the pagedown source file
                     let pathFile = NSBundle.mainBundle().pathForResource("RouteBoxer", ofType: "js")
                    
