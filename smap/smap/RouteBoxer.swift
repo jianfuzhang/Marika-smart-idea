@@ -79,7 +79,7 @@ public class RouteBoxer {
             let dLon: Double = d*sin(brng)/q
             
             if abs(lat2) > M_PI/2 {
-                lat2 = lat2 > 0 ? M_PI-lat2 : -M_PI - lat2
+                lat2 = lat2 > 0 ? M_PI-lat2 : -M_PI + lat2
             }
             
             let lon2: Double = (lon1+dLon+3*M_PI) % (2*M_PI) - M_PI
@@ -310,7 +310,7 @@ public class RouteBoxer {
         for (var i = 2; self.latGrid_[i-2] < routeBounds.getNorthEast().lat; i += 1) {
             self.latGrid_.append(routeBoundsCenter.rhumbDestinationPoint(0, dist: range * Double(i)).lat);
         }
-        
+        // Jeff: we can't use append here, has to insert value in the front of array. otherwise will be infinite loop.
         for var i1 = 1; self.latGrid_[1] < routeBounds.getSouthWest().lat; i1 += 1 {
             self.latGrid_.append(routeBoundsCenter.rhumbDestinationPoint(180, dist: range * Double(i1)).lat)
         }
@@ -321,7 +321,7 @@ public class RouteBoxer {
         for var i2 = 2; self.lngGrid_[i2 - 2] < routeBounds.getNorthEast().lng; i2++ {
             self.lngGrid_.append(routeBoundsCenter.rhumbDestinationPoint(90, dist: range * Double(i2)).lng);
         }
-   
+        
         for var i3 = 1; self.lngGrid_[1] > routeBounds.getSouthWest().lng; i3 += 1 {
             self.lngGrid_.insert(routeBoundsCenter.rhumbDestinationPoint(270, dist: range * Double(i3)).lng, atIndex: 0)
         }
@@ -363,6 +363,7 @@ public class RouteBoxer {
             currentBox = nil
         }
         
+        //Jeff: this time we might want iterate X first?
         //traverse the grid a column at a time
         for y = 0; y < self.grid_[0].count; y+=1 {
             for x = 0; x < self.grid_.count; x+=1 {
@@ -479,6 +480,7 @@ public class RouteBoxer {
             
             self.fillInGridSquares_(hintXY[0], endx: endXY[0], y: i-1)
         }
+        //Jeff: where is else statement?
     }
     
     private func fillInGridSquares_(startx: Int, endx: Int, y: Int) -> Void {

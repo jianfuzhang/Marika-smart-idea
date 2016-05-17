@@ -109,46 +109,46 @@ class ViewController: UIViewController {
                     let polyline = Polyline(encodedPolyline: points)
                     let decodedCoordinates: [CLLocationCoordinate2D]? = polyline.coordinates
                     
-                    var route: [RouteBoxer.LatLng] = []
+                    var route: [LatLng] = []
                     
                     
-                    for var i = 0; i < 10; i += 1 {
-                        let p: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![i].latitude, lng2: decodedCoordinates![i].longitude)
+                    for var i = 0; i < decodedCoordinates?.count; i += 1 {
+                        let p: LatLng = LatLng(point:decodedCoordinates![i])
                      
                             route.append(p)
                     }
                     
                     
                     //////////////////////////////////////////////////////////////////////////////
-                    
-                    let context = JSContext()
-                    
-                    context.exceptionHandler = { context, exception in
-                        print("JS Error: \(exception)")
-                    }
-
-                    
-                    // get path to the pagedown source file
-                    let pathFile = NSBundle.mainBundle().pathForResource("RouteBoxer", ofType: "js")
-                   
-                    
-                    // get the contentData for the file
-                    let contentData = NSFileManager.defaultManager().contentsAtPath(pathFile!)
-                    
-                    // get the string from the data
-                    let content = NSString(data: contentData!, encoding: NSUTF8StringEncoding) as? String
-                    
-                    // finally inject it into the js context
-                    
-                    context.evaluateScript(content)
-                    
-                    //TODO: initGoogle() IS A PROBLEM.
-                    let x: Int = 3
-                    let script = "var rb = new RouteBoxer(); rb.myFunction("+String(x)+",4);"
-                    
-                    let resultScript = context.evaluateScript(script)
-                    
-                    
+//
+//                    let context = JSContext()
+//                    
+//                    context.exceptionHandler = { context, exception in
+//                        print("JS Error: \(exception)")
+//                    }
+//
+//                    
+//                    // get path to the pagedown source file
+//                    let pathFile = NSBundle.mainBundle().pathForResource("RouteBoxer2", ofType: "js")
+//                   
+//                    
+//                    // get the contentData for the file
+//                    let contentData = NSFileManager.defaultManager().contentsAtPath(pathFile!)
+//                    
+//                    // get the string from the data
+//                    let content = NSString(data: contentData!, encoding: NSUTF8StringEncoding) as? String
+//                    
+//                    // finally inject it into the js context
+//                    
+//                    context.evaluateScript(content)
+//                    
+//                    //TODO: initGoogle() IS A PROBLEM.
+//                    let x: Int = 3
+//                    let script = "var rb = new RouteBoxer(); rb.myFunction("+String(x)+",4);"
+//                    
+//                    let resultScript = context.evaluateScript(script)
+//                    
+//                    
 
 //                    let a: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![0].latitude, lng2: decodedCoordinates![0].longitude)
 //                    
@@ -157,15 +157,15 @@ class ViewController: UIViewController {
 //                    let c: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![2].latitude, lng2: decodedCoordinates![2].longitude)
 //
 
-                    let boxes: [RouteBoxer.LatLngBounds] = RouteBoxer().box(route, range: 1)
+                    let boxes: [LatLngBounds] = RouteBoxer2().box(route, range: 1)
                     
                     let path2 = GMSMutablePath()
                     
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].getSouthWest().lat, longitude: boxes[0].getSouthWest().lng))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].getSouthWest().lat, longitude: boxes[0].getNorthEast().lng))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].getNorthEast().lat, longitude: boxes[0].getNorthEast().lng))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].getNorthEast().lat, longitude: boxes[0].getSouthWest().lng))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].getSouthWest().lat, longitude: boxes[0].getSouthWest().lng))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].southWest.latitude, longitude: boxes[0].southWest.longitude))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].southWest.latitude, longitude: boxes[0].northEast.longitude))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].northEast.latitude, longitude: boxes[0].northEast.longitude))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].northEast.latitude, longitude: boxes[0].southWest.longitude))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].southWest.latitude, longitude: boxes[0].southWest.longitude))
 
 
                     let rectangle = GMSPolyline(path: path2)

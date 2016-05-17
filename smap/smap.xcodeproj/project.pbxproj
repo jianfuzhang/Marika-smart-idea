@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8C993741F04C777D72605F1D /* Pods_smap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DC5D79D248C3412B76E821 /* Pods_smap.framework */; };
+		B035AF521CDFFA5E00250EAC /* RouteBoxer2.js in Resources */ = {isa = PBXBuildFile; fileRef = B035AF511CDFFA5E00250EAC /* RouteBoxer2.js */; };
+		B035AF541CE0079900250EAC /* RouteBoxer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B035AF531CE0079900250EAC /* RouteBoxer2.swift */; };
 		CFE98D40140A251747D7EF38 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0B39AD15973BA44F4D39E2 /* Pods.framework */; };
 		F72C3E7D1CBC558600AD5347 /* GoogleDirectionsRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */; };
 		F760B77A1CC70FB20087E67D /* RouteBoxer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F760B7791CC70FB20087E67D /* RouteBoxer.swift */; };
@@ -44,6 +46,8 @@
 		27F40CE45BED21DC2498CEE7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		94174D813ABD911047256AED /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA0B39AD15973BA44F4D39E2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B035AF511CDFFA5E00250EAC /* RouteBoxer2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = RouteBoxer2.js; sourceTree = "<group>"; };
+		B035AF531CE0079900250EAC /* RouteBoxer2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteBoxer2.swift; sourceTree = "<group>"; };
 		D6DC5D79D248C3412B76E821 /* Pods_smap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_smap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDirectionsRoute.swift; sourceTree = "<group>"; };
 		F760B7791CC70FB20087E67D /* RouteBoxer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteBoxer.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 			children = (
 				F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */,
 				F760B7791CC70FB20087E67D /* RouteBoxer.swift */,
+				B035AF531CE0079900250EAC /* RouteBoxer2.swift */,
 			);
 			name = GMapsHelper;
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				F79EFC341CD02D9C0052529D /* RouteBoxer.js */,
+				B035AF511CDFFA5E00250EAC /* RouteBoxer2.js */,
 				F7C836EE1CBA0A53004360A8 /* smap */,
 				F7C837031CBA0A53004360A8 /* smapTests */,
 				F7C8370E1CBA0A53004360A8 /* smapUITests */,
@@ -274,7 +280,7 @@
 				TargetAttributes = {
 					F7C836EB1CBA0A53004360A8 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 6W8Q724D5F;
+						DevelopmentTeam = ZH6SJB5LLJ;
 					};
 					F7C836FF1CBA0A53004360A8 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -311,6 +317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B035AF521CDFFA5E00250EAC /* RouteBoxer2.js in Resources */,
 				F7C836FA1CBA0A53004360A8 /* LaunchScreen.storyboard in Resources */,
 				F7C836F71CBA0A53004360A8 /* Assets.xcassets in Resources */,
 				F7C836F51CBA0A53004360A8 /* Main.storyboard in Resources */,
@@ -389,6 +396,7 @@
 			files = (
 				F760B77A1CC70FB20087E67D /* RouteBoxer.swift in Sources */,
 				F7C837251CBA0FD9004360A8 /* YelpClient.swift in Sources */,
+				B035AF541CE0079900250EAC /* RouteBoxer2.swift in Sources */,
 				F7C837221CBA0DC1004360A8 /* Business.swift in Sources */,
 				F7C836F21CBA0A53004360A8 /* ViewController.swift in Sources */,
 				F7C836F01CBA0A53004360A8 /* AppDelegate.swift in Sources */,
