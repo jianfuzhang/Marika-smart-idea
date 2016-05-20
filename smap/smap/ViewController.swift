@@ -160,12 +160,13 @@ class ViewController: UIViewController {
                     let boxes: [LatLngBounds] = RouteBoxer2().box(route, range: 1)
                     
                     let path2 = GMSMutablePath()
-                    
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].southWest.latitude, longitude: boxes[0].southWest.longitude))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].southWest.latitude, longitude: boxes[0].northEast.longitude))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].northEast.latitude, longitude: boxes[0].northEast.longitude))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].northEast.latitude, longitude: boxes[0].southWest.longitude))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[0].southWest.latitude, longitude: boxes[0].southWest.longitude))
+                    for (var i = 0; i < boxes.count; i++) {
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].southWest.latitude, longitude: boxes[i].southWest.longitude))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].southWest.latitude, longitude: boxes[i].northEast.longitude))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].northEast.latitude, longitude: boxes[i].northEast.longitude))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].northEast.latitude, longitude: boxes[i].southWest.longitude))
+                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].southWest.latitude, longitude: boxes[i].southWest.longitude))
+                    }
 
 
                     let rectangle = GMSPolyline(path: path2)
