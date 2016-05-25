@@ -98,13 +98,6 @@ class ViewController: UIViewController {
                     let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
                     mapView.myLocationEnabled = true
                     
-                    //get the bounds lat/lon
-                    let bound_northeast_lat = routesJson[0]["bounds"]["northeast"]["lat"].number!
-                    let bound_northeast_lng = routesJson[0]["bounds"]["northeast"]["lng"].number!
-                    let bound_southwest_lat = routesJson[0]["bounds"]["southwest"]["lat"].number!
-                    let bound_southwest_lng = routesJson[0]["bounds"]["southwest"]["lng"].number!
-                    let bounds:String? = String(bound_northeast_lat)+","+String(bound_northeast_lng)+"|"+String(bound_southwest_lat)+","+String(bound_southwest_lng)
-                    print (bounds)
                     
                     let polyline = Polyline(encodedPolyline: points)
                     let decodedCoordinates: [CLLocationCoordinate2D]? = polyline.coordinates
@@ -114,58 +107,48 @@ class ViewController: UIViewController {
                     
                     for var i = 0; i < decodedCoordinates?.count; i += 1 {
                         let p: LatLng = LatLng(point:decodedCoordinates![i])
-                     
                             route.append(p)
                     }
                     
-                    var RouteBoxer = RouteBoxer2()
+                    let RouteBoxer = RouteBoxer2()
                     let boxes: [LatLngBounds] = RouteBoxer.box(route, range: 1)
                     
+                    
+                    let pathBoxes = GMSMutablePath()
+                    for (var i = 0; i < boxes.count; i++) {
+                        let bound_northeast_lat = boxes[i].northEast.latitude
+                        let bound_northeast_lng = boxes[i].northEast.longitude
+                        let bound_southwest_lat = boxes[i].southWest.latitude
+                        let bound_southwest_lng = boxes[i].southWest.longitude
+                        
+                        pathBoxes.addCoordinate(CLLocationCoordinate2D(latitude: bound_southwest_lat, longitude: bound_southwest_lng))
+                        pathBoxes.addCoordinate(CLLocationCoordinate2D(latitude: bound_southwest_lat, longitude: bound_northeast_lng))
+                        pathBoxes.addCoordinate(CLLocationCoordinate2D(latitude: bound_northeast_lat, longitude: bound_northeast_lng))
+                        pathBoxes.addCoordinate(CLLocationCoordinate2D(latitude: bound_northeast_lat, longitude: bound_southwest_lng))
+                        pathBoxes.addCoordinate(CLLocationCoordinate2D(latitude: bound_southwest_lat, longitude: bound_southwest_lng))
+
+                        let bounds:String? = String(bound_northeast_lat)+","+String(bound_northeast_lng)+"|"+String(bound_southwest_lat)+","+String(bound_southwest_lng)
+                        
+                        Business.searchWithTerm(searchBusiness, bounds: bounds!, sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+                            self.businesses = businesses
+                            
+                            for business in businesses {
+                                let lat = business.lat
+                                let lng = business.lng
+                                let coordinate = CLLocationCoordinate2D(latitude: lat!,longitude: lng!)
+                                
+                                self.directions.drawMarkerWithCoordinates(UIColor.blueColor(), title: business.name!, address: business.address!, coordinates: coordinate,onMap: mapView)
+                            }
+                        })
+                    }
 
                     
-//                    for (var y = 0; y < RouteBoxer.latGrid_.count; y++) {
-//                        for (var x = 0; x < RouteBoxer.lngGrid_.count; x++) {
-//                            if (RouteBoxer.grid_[x][y] == 1) {
-//                                let test_grid = GMSMutablePath()
-//                                test_grid.addLatitude(RouteBoxer.latGrid_[y].num, longitude: RouteBoxer.lngGrid_[x].num)
-//                                test_grid.addLatitude(RouteBoxer.latGrid_[y+1].num, longitude: RouteBoxer.lngGrid_[x].num)
-//                                test_grid.addLatitude(RouteBoxer.latGrid_[y+1].num, longitude: RouteBoxer.lngGrid_[x+1].num)
-//                                test_grid.addLatitude(RouteBoxer.latGrid_[y].num, longitude: RouteBoxer.lngGrid_[x+1].num)
-//                                let test_path = GMSPolyline(path: test_grid)
-//                                test_path.map = mapView
-//                            }
-//                        }
-//                    }
-                    
-                    
-                    let path2 = GMSMutablePath()
-                    for (var i = 0; i < boxes.count; i++) {
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].southWest.latitude, longitude: boxes[i].southWest.longitude))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].southWest.latitude, longitude: boxes[i].northEast.longitude))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].northEast.latitude, longitude: boxes[i].northEast.longitude))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].northEast.latitude, longitude: boxes[i].southWest.longitude))
-                    path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].southWest.latitude, longitude: boxes[i].southWest.longitude))
-                    }
-                    
-                    let rectangle = GMSPolyline(path: path2)
+                    let rectangle = GMSPolyline(path: pathBoxes)
                     
                     rectangle.map = mapView
                     
-
                     let originAddress = routesJson[0]["legs"][0]["start_address"].stringValue
                     let destinationAddress = routesJson[0]["legs"][0]["end_address"].stringValue
-                    
-                    Business.searchWithTerm(searchBusiness, bounds: bounds!, sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
-                        self.businesses = businesses
-                        
-                        for business in businesses {
-                            let lat = business.lat
-                            let lng = business.lng
-                            let coordinate = CLLocationCoordinate2D(latitude: lat!,longitude: lng!)
-                            
-                            self.directions.drawMarkerWithCoordinates(UIColor.blueColor(), title: business.name!, address: business.address!, coordinates: coordinate,onMap: mapView)
-                        }
-                    })
                     
                     self.view = mapView
                     

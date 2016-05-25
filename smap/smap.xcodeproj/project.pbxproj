@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8C993741F04C777D72605F1D /* Pods_smap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DC5D79D248C3412B76E821 /* Pods_smap.framework */; };
-		B00173B61CF50EDF0063B487 /* RouteBoxer.js in Resources */ = {isa = PBXBuildFile; fileRef = B00173B51CF50EDF0063B487 /* RouteBoxer.js */; };
 		B035AF541CE0079900250EAC /* RouteBoxer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B035AF531CE0079900250EAC /* RouteBoxer2.swift */; };
 		CFE98D40140A251747D7EF38 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0B39AD15973BA44F4D39E2 /* Pods.framework */; };
 		F72C3E7D1CBC558600AD5347 /* GoogleDirectionsRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */; };
@@ -44,7 +43,6 @@
 		27F40CE45BED21DC2498CEE7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		94174D813ABD911047256AED /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA0B39AD15973BA44F4D39E2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B00173B51CF50EDF0063B487 /* RouteBoxer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = RouteBoxer.js; sourceTree = "<group>"; };
 		B035AF531CE0079900250EAC /* RouteBoxer2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteBoxer2.swift; sourceTree = "<group>"; };
 		D6DC5D79D248C3412B76E821 /* Pods_smap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_smap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F72C3E7C1CBC558600AD5347 /* GoogleDirectionsRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDirectionsRoute.swift; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 		F7C836E31CBA0A53004360A8 = {
 			isa = PBXGroup;
 			children = (
-				B00173B51CF50EDF0063B487 /* RouteBoxer.js */,
 				F7C836EE1CBA0A53004360A8 /* smap */,
 				F7C837031CBA0A53004360A8 /* smapTests */,
 				F7C8370E1CBA0A53004360A8 /* smapUITests */,
@@ -274,7 +271,7 @@
 				TargetAttributes = {
 					F7C836EB1CBA0A53004360A8 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = ZH6SJB5LLJ;
+						DevelopmentTeam = 6W8Q724D5F;
 					};
 					F7C836FF1CBA0A53004360A8 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -312,7 +309,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7C836FA1CBA0A53004360A8 /* LaunchScreen.storyboard in Resources */,
-				B00173B61CF50EDF0063B487 /* RouteBoxer.js in Resources */,
 				F7C836F71CBA0A53004360A8 /* Assets.xcassets in Resources */,
 				F7C836F51CBA0A53004360A8 /* Main.storyboard in Resources */,
 			);
