@@ -280,7 +280,7 @@ class RouteBoxer2 {
                     // Otherwise start a new box.
                     box = self.getCellBounds_([x,y])
                     if (currentBox != nil) {
-                        currentBox!.extend(LatLng(point:box.northEast))
+                        currentBox = currentBox!.extend(LatLng(point:box.northEast))
                     } else {
                         currentBox = box
                     }
@@ -309,7 +309,7 @@ class RouteBoxer2 {
                     // Otherwise start a new box.
                     if (currentBox != nil) {
                         box = self.getCellBounds_([x,y])
-                        currentBox!.extend(LatLng(point: box.northEast))
+                        currentBox = currentBox!.extend(LatLng(point: box.northEast))
                     } else {
                         currentBox = self.getCellBounds_([x,y])
                     }
@@ -343,7 +343,7 @@ class RouteBoxer2 {
                 if (self.boxesX_[i].northEast.longitude == box!.southWest.longitude &&
                     self.boxesX_[i].southWest.latitude == box!.southWest.latitude &&
                     self.boxesX_[i].northEast.latitude == box!.northEast.latitude) {
-                    self.boxesX_[i].extend(LatLng(point:box!.northEast))
+                    self.boxesX_[i] = self.boxesX_[i].extend(LatLng(point:box!.northEast))
                     return
                 }
             }
@@ -364,7 +364,7 @@ class RouteBoxer2 {
                 if (self.boxesY_[i].northEast.latitude == box!.southWest.latitude &&
                     self.boxesY_[i].southWest.longitude == box!.southWest.longitude &&
                     self.boxesY_[i].northEast.longitude == box!.northEast.longitude) {
-                    self.boxesY_[i].extend(LatLng(point:box!.northEast))
+                    self.boxesY_[i] = self.boxesY_[i].extend(LatLng(point:box!.northEast))
                     return
                 }
             }
@@ -432,7 +432,7 @@ class LatLng {
 
 class LatLngBounds:GMSCoordinateBounds {
 
-    func extend(point:LatLng) -> LatLngBounds{
+func extend(point:LatLng) -> LatLngBounds{
         let new_bounds = super.includingCoordinate(point.coordinate)
         return LatLngBounds(coordinate: new_bounds.northEast,coordinate: new_bounds.southWest)
     }

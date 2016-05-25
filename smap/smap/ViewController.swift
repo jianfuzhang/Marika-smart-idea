@@ -118,46 +118,25 @@ class ViewController: UIViewController {
                             route.append(p)
                     }
                     
+                    var RouteBoxer = RouteBoxer2()
+                    let boxes: [LatLngBounds] = RouteBoxer.box(route, range: 1)
                     
-                    //////////////////////////////////////////////////////////////////////////////
-//
-//                    let context = JSContext()
-//                    
-//                    context.exceptionHandler = { context, exception in
-//                        print("JS Error: \(exception)")
+
+                    
+//                    for (var y = 0; y < RouteBoxer.latGrid_.count; y++) {
+//                        for (var x = 0; x < RouteBoxer.lngGrid_.count; x++) {
+//                            if (RouteBoxer.grid_[x][y] == 1) {
+//                                let test_grid = GMSMutablePath()
+//                                test_grid.addLatitude(RouteBoxer.latGrid_[y].num, longitude: RouteBoxer.lngGrid_[x].num)
+//                                test_grid.addLatitude(RouteBoxer.latGrid_[y+1].num, longitude: RouteBoxer.lngGrid_[x].num)
+//                                test_grid.addLatitude(RouteBoxer.latGrid_[y+1].num, longitude: RouteBoxer.lngGrid_[x+1].num)
+//                                test_grid.addLatitude(RouteBoxer.latGrid_[y].num, longitude: RouteBoxer.lngGrid_[x+1].num)
+//                                let test_path = GMSPolyline(path: test_grid)
+//                                test_path.map = mapView
+//                            }
+//                        }
 //                    }
-//
-//                    
-//                    // get path to the pagedown source file
-//                    let pathFile = NSBundle.mainBundle().pathForResource("RouteBoxer2", ofType: "js")
-//                   
-//                    
-//                    // get the contentData for the file
-//                    let contentData = NSFileManager.defaultManager().contentsAtPath(pathFile!)
-//                    
-//                    // get the string from the data
-//                    let content = NSString(data: contentData!, encoding: NSUTF8StringEncoding) as? String
-//                    
-//                    // finally inject it into the js context
-//                    
-//                    context.evaluateScript(content)
-//                    
-//                    //TODO: initGoogle() IS A PROBLEM.
-//                    let x: Int = 3
-//                    let script = "var rb = new RouteBoxer(); rb.myFunction("+String(x)+",4);"
-//                    
-//                    let resultScript = context.evaluateScript(script)
-//                    
-//                    
-
-//                    let a: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![0].latitude, lng2: decodedCoordinates![0].longitude)
-//                    
-//                    let b: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![1].latitude, lng2: decodedCoordinates![1].longitude)
-//                    
-//                    let c: RouteBoxer.LatLng = RouteBoxer.LatLng(lat2: decodedCoordinates![2].latitude, lng2: decodedCoordinates![2].longitude)
-//
-
-                    let boxes: [LatLngBounds] = RouteBoxer2().box(route, range: 1)
+                    
                     
                     let path2 = GMSMutablePath()
                     for (var i = 0; i < boxes.count; i++) {
@@ -167,8 +146,7 @@ class ViewController: UIViewController {
                     path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].northEast.latitude, longitude: boxes[i].southWest.longitude))
                     path2.addCoordinate(CLLocationCoordinate2D(latitude: boxes[i].southWest.latitude, longitude: boxes[i].southWest.longitude))
                     }
-
-
+                    
                     let rectangle = GMSPolyline(path: path2)
                     
                     rectangle.map = mapView
