@@ -97,6 +97,10 @@ class ViewController: UIViewController {
                     
                     let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
                     mapView.myLocationEnabled = true
+                    mapView.settings.compassButton = true
+                    mapView.settings.myLocationButton = true
+                    mapView.settings.indoorPicker = true
+
                     
                     
                     let polyline = Polyline(encodedPolyline: points)
