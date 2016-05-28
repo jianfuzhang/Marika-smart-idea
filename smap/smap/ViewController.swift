@@ -119,7 +119,14 @@ class ViewController: UIViewController {
                     
                     
                     let pathBoxes = GMSMutablePath()
+                    var count: Int = 0
+
+                    
                     for (var i = 0; i < boxes.count; i++) {
+                        let count = count++
+
+                        
+                        //if (i==4) {
                         let bound_northeast_lat = boxes[i].northEast.latitude
                         let bound_northeast_lng = boxes[i].northEast.longitude
                         let bound_southwest_lat = boxes[i].southWest.latitude
@@ -135,15 +142,18 @@ class ViewController: UIViewController {
                         
                         Business.searchWithTerm(searchBusiness, bounds: bounds!, sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
                             self.businesses = businesses
-                            
+
                             for business in businesses {
                                 let lat = business.lat
                                 let lng = business.lng
                                 let coordinate = CLLocationCoordinate2D(latitude: lat!,longitude: lng!)
                                 
-                                self.directions.drawMarkerWithCoordinates(UIColor.blueColor(), title: business.name!, address: business.address!, coordinates: coordinate,onMap: mapView)
+                                //if (MyString.blank(business.address!) == false) {
+                                    self.directions.drawMarkerWithCoordinates(UIColor.blueColor(), title: business.name!, address: business.address! + ", Bounding box #" + String(count), coordinates: coordinate,onMap: mapView)
+                                //}
                             }
                         })
+                        //}
                     }
 
                     
@@ -176,6 +186,23 @@ class ViewController: UIViewController {
         operation.start()
     }
     
+    struct MyString {
+        static func blank(text: String) -> Bool {
+            let trimmed = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            
+            
+            
+            
+            let decimalCharacters = NSCharacterSet.decimalDigitCharacterSet()
+            
+            let decimalRange = text.rangeOfCharacterFromSet(decimalCharacters, options: NSStringCompareOptions(), range: nil)
+            
+            if (trimmed.isEmpty == true || decimalRange == nil) {
+                return true
+            }
+            return false
+        }
+    }
     
     @IBAction func GetCurrentLocation(sender: UIButton) {
         placesClient?.currentPlaceWithCallback({
