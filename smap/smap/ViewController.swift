@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     @IBOutlet var _originAddr: UITextField!
     @IBOutlet var _destAddr: UITextField!
     @IBOutlet var _searchBusiness: UITextField!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,15 +143,19 @@ class ViewController: UIViewController {
                         
                         Business.searchWithTerm(searchBusiness, bounds: bounds!, sort: nil, categories: nil, deals: nil, completion: { (businesses: [Business]!, error: NSError!) -> Void in
                             self.businesses = businesses
-
+                            
                             for business in businesses {
                                 let lat = business.lat
                                 let lng = business.lng
                                 let coordinate = CLLocationCoordinate2D(latitude: lat!,longitude: lng!)
-                                
-                                //if (MyString.blank(business.address!) == false) {
-                                    self.directions.drawMarkerWithCoordinates(UIColor.blueColor(), title: business.name!, address: business.address! + ", Bounding box #" + String(count), coordinates: coordinate,onMap: mapView)
-                                //}
+                                if (MyString.checkBusiness(business.address!, category: business.categories!) == true) {
+                                    self.directions.drawMarkerWithCoordinates(UIColor.blueColor(),
+                                        title: business.name!,
+                                        address: business.address! + "\n" +
+                                            "Category: " + business.categories! + "\n" +
+                                            "Bounding box #" + String(count) + "\n",
+                                        coordinates: coordinate,onMap: mapView)
+                                }
                             }
                         })
                         //}
@@ -186,21 +191,23 @@ class ViewController: UIViewController {
         operation.start()
     }
     
+    
+    
     struct MyString {
-        static func blank(text: String) -> Bool {
-            let trimmed = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            
-            
-            
+        //Removes outliers: Checks if business address is a valid address and if the category is not "Food Delivery Services"
+        static func checkBusiness(address: String, category: String) -> Bool {
+     
+            let trimmed = address.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             
             let decimalCharacters = NSCharacterSet.decimalDigitCharacterSet()
             
-            let decimalRange = text.rangeOfCharacterFromSet(decimalCharacters, options: NSStringCompareOptions(), range: nil)
-            
-            if (trimmed.isEmpty == true || decimalRange == nil) {
-                return true
+            let decimalRange = address.rangeOfCharacterFromSet(decimalCharacters, options: NSStringCompareOptions(), range: nil)
+
+        
+            if (trimmed.isEmpty == true || decimalRange == nil || category.rangeOfString("Food Delivery Services") != nil) {
+                return false
             }
-            return false
+            return true
         }
     }
     
